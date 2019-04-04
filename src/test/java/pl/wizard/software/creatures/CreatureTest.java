@@ -57,4 +57,15 @@ class CreatureTest {
         assertEquals(9, centaur.getCurrentHp());
     }
 
+    @Test
+    void shootingCreatureShouldNotBeCounterAttacked(){
+        Creature shootingCreature = new Creature("Shooting", 10, 5, 3);
+
+        shootingCreature.attack(imp);
+
+        assertEquals(shootingCreature.getMaxHp(), shootingCreature.getCurrentHp());
+    }
+
+
+
 }

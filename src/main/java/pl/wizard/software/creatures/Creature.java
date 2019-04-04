@@ -43,4 +43,8 @@ class Creature {
     int getCurrentHp() {
         return currentHp;
     }
+
+    int getMaxHp() {
+        return maxHp;
+    }
 }

@@ -23,6 +23,18 @@ class Creature {
         } else {
             aDefender.currentHp -= 1;
         }
+
+        counterAttack(aDefender);
+    }
+
+    private void counterAttack(Creature aDefender) {
+        Creature attacker = this;
+        int damageToDeal = aDefender.attack - attacker.defence;
+        if (damageToDeal > 0) {
+            attacker.currentHp -= damageToDeal;
+        } else {
+            attacker.currentHp -= 1;
+        }
     }
 
     int getCurrentHp() {

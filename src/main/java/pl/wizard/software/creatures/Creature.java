@@ -17,23 +17,22 @@ class Creature {
     }
 
     void attack(Creature aDefender) {
-        int damageToDeal = this.attack - aDefender.defence;
-        if (damageToDeal > 0) {
-            aDefender.currentHp -= damageToDeal;
-        } else {
-            aDefender.currentHp -= 1;
-        }
-
+        int damageToDeal = calculateDamageToDeal(this, aDefender);
+        aDefender.currentHp -= damageToDeal;
         counterAttack(aDefender);
     }
 
     private void counterAttack(Creature aDefender) {
-        Creature attacker = this;
-        int damageToDeal = aDefender.attack - attacker.defence;
+        int damageToDeal = aDefender.calculateDamageToDeal(aDefender, this);
+        this.currentHp -= damageToDeal;
+    }
+
+    private int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
+        int damageToDeal = aAtacker.attack - aDefender.defence;
         if (damageToDeal > 0) {
-            attacker.currentHp -= damageToDeal;
+            return damageToDeal;
         } else {
-            attacker.currentHp -= 1;
+            return 1;
         }
     }
 

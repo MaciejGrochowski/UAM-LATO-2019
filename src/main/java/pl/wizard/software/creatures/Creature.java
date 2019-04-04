@@ -7,6 +7,7 @@ class Creature {
     private int currentHp;
     private final int attack;
     private final int defence;
+    private boolean counterAttacked;
 
     Creature(String aName, int aMaxHp, int aAttack, int aDefence) {
         name = aName;
@@ -23,8 +24,11 @@ class Creature {
     }
 
     private void counterAttack(Creature aDefender) {
-        int damageToDeal = aDefender.calculateDamageToDeal(aDefender, this);
-        this.currentHp -= damageToDeal;
+        if(!counterAttacked){
+            int damageToDeal = aDefender.calculateDamageToDeal(aDefender, this);
+            this.currentHp -= damageToDeal;
+            counterAttacked = true;
+        }
     }
 
     private int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {

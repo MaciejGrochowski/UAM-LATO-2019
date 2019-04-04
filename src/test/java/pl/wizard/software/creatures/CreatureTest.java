@@ -49,4 +49,12 @@ class CreatureTest {
         assertEquals(2, imp.getCurrentHp());
     }
 
+    @Test
+    void impShouldCounterAttackOnlyOnce(){
+        centaur.attack(imp);
+        centaur.attack(imp);
+
+        assertEquals(9, centaur.getCurrentHp());
+    }
+
 }

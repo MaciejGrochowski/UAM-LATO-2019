@@ -59,7 +59,7 @@ class CreatureTest {
 
     @Test
     void shootingCreatureShouldNotBeCounterAttacked(){
-        Creature shootingCreature = new Creature("Shooting", 10, 5, 3, true);
+        Creature shootingCreature = new ShootingCreature("Shooting", 10, 5, 3);
 
         shootingCreature.attack(imp);
 

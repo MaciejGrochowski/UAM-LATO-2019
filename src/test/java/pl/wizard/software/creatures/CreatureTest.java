@@ -78,8 +78,18 @@ class CreatureTest {
         assertTrue(imp.isAlive());
     }
 
-    
+    @Test
+    void cretureShouldDieIfHisCurrentHpIsNotMax(){
+        imp.addCreaturesToStack(2);
+        centaur.attack(imp);
 
+        assertEquals(imp.getStartAmount(), imp.getCurrentAmount());
+        assertEquals(2, imp.getCurrentHp());
 
+        centaur.addCreaturesToStack(3);
+        centaur.attack(imp);
 
+        assertEquals(1, imp.getCurrentAmount());
+        assertEquals(2, imp.getCurrentHp());
+    }
 }

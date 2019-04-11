@@ -73,8 +73,8 @@ class CreatureTest {
 
         centaur.attack(imp);
 
-        assertEquals(imp.getStartAmount() - 1,imp.getCurrentAmount());
         assertEquals(imp.getMaxHp(), imp.getCurrentHp());
+        assertEquals(imp.getStartAmount() - 1,imp.getCurrentAmount());
         assertTrue(imp.isAlive());
     }
 

@@ -8,6 +8,8 @@ class Creature {
     private final int attack;
     private final int defence;
     private boolean counterAttacked;
+    private int startAmount;
+    private int currentAmount;
 
     Creature(String aName, int aMaxHp, int aAttack, int aDefence) {
         name = aName;
@@ -15,19 +17,25 @@ class Creature {
         currentHp = maxHp;
         attack = aAttack;
         defence = aDefence;
+        startAmount = 1;
+        currentAmount = startAmount;
     }
 
 
     void attack(Creature aDefender) {
         int damageToDeal = calculateDamageToDeal(this, aDefender);
-        aDefender.currentHp -= damageToDeal;
+        aDefender.dealDamageToMe(damageToDeal);
         aDefender.counterAttack(this);
     }
 
+    private void dealDamageToMe(int aDamageToDeal) {
+        currentHp -= aDamageToDeal;
+    }
+
     private void counterAttack(Creature aAttacker) {
-        if(!counterAttacked ){
+        if (!counterAttacked) {
             int damageToDeal = calculateDamageToDeal(this, aAttacker);
-            aAttacker.currentHp -= damageToDeal;
+            aAttacker.dealDamageToMe(damageToDeal);
             counterAttacked = true;
         }
     }
@@ -35,9 +43,9 @@ class Creature {
     protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
         int damageToDeal = aAtacker.attack - aDefender.defence;
         if (damageToDeal > 0) {
-            return damageToDeal;
+            return aAtacker.getCurrentAmount() * damageToDeal;
         } else {
-            return 1;
+            return aAtacker.getCurrentAmount() * 1;
         }
     }
 
@@ -51,5 +59,22 @@ class Creature {
 
     protected void setCurrentHp(int aCurrentHp) {
         currentHp = aCurrentHp;
+    }
+
+    void addCreaturesToStack(int aAmount) {
+        startAmount += aAmount;
+        currentAmount = startAmount;
+    }
+
+    int getStartAmount() {
+        return startAmount;
+    }
+
+    int getCurrentAmount() {
+        return currentAmount;
+    }
+
+    boolean isAlive() {
+        return currentAmount > 0;
     }
 }

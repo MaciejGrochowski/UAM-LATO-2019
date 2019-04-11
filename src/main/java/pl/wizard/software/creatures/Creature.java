@@ -14,7 +14,7 @@ class Creature {
     private int currentAmount;
     private CalculateDamageStrategyIf dealDamageStrategy;
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aGeberish) {
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aDamageStrategy) {
         name = aName;
         maxHp = aMaxHp;
         currentHp = maxHp;
@@ -22,7 +22,7 @@ class Creature {
         defence = aDefence;
         startAmount = 1;
         currentAmount = startAmount;
-        dealDamageStrategy = aGeberish;
+        dealDamageStrategy = aDamageStrategy;
     }
 
 

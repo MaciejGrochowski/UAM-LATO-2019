@@ -66,6 +66,18 @@ class CreatureTest {
         assertEquals(shootingCreature.getMaxHp(), shootingCreature.getCurrentHp());
     }
 
+    @Test
+    void shouldLostOneCreatureFtomStack(){
+        centaur.addCreaturesToStack(2);
+        imp.addCreaturesToStack(2);
+
+        centaur.attack(imp);
+
+        assertEquals(imp.getStartAmount() - 1,imp.getCurrentAmount());
+        assertEquals(imp.getMaxHp(), imp.getCurrentHp());
+        assertTrue(imp.isAlive());
+    }
+
 
 
 }

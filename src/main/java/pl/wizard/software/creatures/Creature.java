@@ -1,17 +1,20 @@
 package pl.wizard.software.creatures;
 
+import com.google.common.collect.Range;
+
 class Creature {
 
     private final String name;
     private final int maxHp;
     private int currentHp;
-    private final int attack;
+    private final Range<Integer> attack;
     private final int defence;
     private boolean counterAttacked;
     private int startAmount;
     private int currentAmount;
+    private Geberish geberish;
 
-    Creature(String aName, int aMaxHp, int aAttack, int aDefence) {
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
         name = aName;
         maxHp = aMaxHp;
         currentHp = maxHp;
@@ -19,11 +22,12 @@ class Creature {
         defence = aDefence;
         startAmount = 1;
         currentAmount = startAmount;
+        geberish = new Geberish();
     }
 
 
     void attack(Creature aDefender) {
-        int damageToDeal = calculateDamageToDeal(this, aDefender);
+        int damageToDeal = geberish.calculateDamageToDeal(this, aDefender);
         aDefender.dealDamageToMe(damageToDeal);
         aDefender.counterAttack(this);
     }
@@ -39,20 +43,20 @@ class Creature {
 
     private void counterAttack(Creature aAttacker) {
         if (!counterAttacked) {
-            int damageToDeal = calculateDamageToDeal(this, aAttacker);
+            int damageToDeal = geberish.calculateDamageToDeal(this, aAttacker);
             aAttacker.dealDamageToMe(damageToDeal);
             counterAttacked = true;
         }
     }
 
-    protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
-        int damageToDeal = aAtacker.attack - aDefender.defence;
-        if (damageToDeal > 0) {
-            return aAtacker.getCurrentAmount() * damageToDeal;
-        } else {
-            return aAtacker.getCurrentAmount() * 1;
-        }
-    }
+//    protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
+//        int damageToDeal = aAtacker.attack.lowerEndpoint() - aDefender.defence;
+//        if (damageToDeal > 0) {
+//            return aAtacker.getCurrentAmount() * damageToDeal;
+//        } else {
+//            return aAtacker.getCurrentAmount() * 1;
+//        }
+//    }
 
     int getCurrentHp() {
         return currentHp;
@@ -81,5 +85,17 @@ class Creature {
 
     boolean isAlive() {
         return currentAmount > 0;
+    }
+
+    Range<Integer> getAttack() {
+        return attack;
+    }
+
+    int getDefence() {
+        return defence;
+    }
+
+    protected Geberish getGeberish() {
+        return geberish;
     }
 }

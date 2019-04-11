@@ -1,5 +1,6 @@
 package pl.wizard.software.creatures;
 
+import com.google.common.collect.Range;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +19,11 @@ class CreatureTest {
     }
 
     private Creature prepareImp() {
-        return new Creature("Imp",4,2,3);
+        return new Creature("Imp",4, Range.closed(2,3),3);
     }
 
     private Creature prepareCentaur() {
-        return new Creature("Centaur", 10,5,3);
+        return new Creature("Centaur", 10,Range.closed(5,7),3);
     }
 
 
@@ -59,7 +60,7 @@ class CreatureTest {
 
     @Test
     void shootingCreatureShouldNotBeCounterAttacked(){
-        Creature shootingCreature = new ShootingCreature("Shooting", 10, 5, 3);
+        Creature shootingCreature = new ShootingCreature("Shooting", 10, Range.closed(5,7), 3);
 
         shootingCreature.attack(imp);
 

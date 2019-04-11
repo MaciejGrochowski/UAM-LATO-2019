@@ -29,7 +29,12 @@ class Creature {
     }
 
     private void dealDamageToMe(int aDamageToDeal) {
-        currentHp -= aDamageToDeal;
+        int bufor = aDamageToDeal;
+                while(bufor >= currentHp){
+                    currentAmount -= 1;
+                    bufor -= maxHp;
+                }
+        currentHp -= bufor;
     }
 
     private void counterAttack(Creature aAttacker) {

@@ -68,8 +68,8 @@ class CreatureTest {
 
     @Test
     void shouldLostOneCreatureFtomStack(){
-        centaur.addCreaturesToStack(2);
-        imp.addCreaturesToStack(2);
+        centaur.addCreaturesToStack(1);
+        imp.addCreaturesToStack(1);
 
         centaur.attack(imp);
 
@@ -77,6 +77,8 @@ class CreatureTest {
         assertEquals(imp.getStartAmount() - 1,imp.getCurrentAmount());
         assertTrue(imp.isAlive());
     }
+
+    
 
 
 

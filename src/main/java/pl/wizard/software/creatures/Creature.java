@@ -14,7 +14,7 @@ class Creature {
     private int currentAmount;
     private Geberish geberish;
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, Geberish aGeberish) {
         name = aName;
         maxHp = aMaxHp;
         currentHp = maxHp;
@@ -22,7 +22,7 @@ class Creature {
         defence = aDefence;
         startAmount = 1;
         currentAmount = startAmount;
-        geberish = new Geberish();
+        geberish = aGeberish;
     }
 
 

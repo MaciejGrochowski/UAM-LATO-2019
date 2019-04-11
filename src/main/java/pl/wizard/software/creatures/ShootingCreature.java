@@ -5,7 +5,7 @@ import com.google.common.collect.Range;
 class ShootingCreature extends Creature {
 
     ShootingCreature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
-        super(aName, aMaxHp, aAttack, aDefence);
+        super(aName, aMaxHp, aAttack, aDefence, new Geberish());
     }
 
     @Override

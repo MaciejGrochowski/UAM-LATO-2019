@@ -21,13 +21,13 @@ class Creature {
     void attack(Creature aDefender) {
         int damageToDeal = calculateDamageToDeal(this, aDefender);
         aDefender.currentHp -= damageToDeal;
-        counterAttack(aDefender);
+        aDefender.counterAttack(this);
     }
 
-    private void counterAttack(Creature aDefender) {
+    private void counterAttack(Creature aAttacker) {
         if(!counterAttacked ){
-            int damageToDeal = aDefender.calculateDamageToDeal(aDefender, this);
-            this.currentHp -= damageToDeal;
+            int damageToDeal = calculateDamageToDeal(this, aAttacker);
+            aAttacker.currentHp -= damageToDeal;
             counterAttacked = true;
         }
     }

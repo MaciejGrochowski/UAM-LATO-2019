@@ -1,8 +1,9 @@
 package pl.wizard.software.creatures;
 
-class Geberish {
+class LowerDamageStragegy implements CalculateDamageStrategyIf {
 
-    protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
+    @Override
+    public int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
         int damageToDeal = aAtacker.getAttack().lowerEndpoint() - aDefender.getDefence();
         if (damageToDeal > 0) {
             return aAtacker.getCurrentAmount() * damageToDeal;

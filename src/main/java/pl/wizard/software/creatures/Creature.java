@@ -12,9 +12,9 @@ class Creature {
     private boolean counterAttacked;
     private int startAmount;
     private int currentAmount;
-    private Geberish geberish;
+    private CalculateDamageStrategyIf dealDamageStrategy;
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, Geberish aGeberish) {
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aGeberish) {
         name = aName;
         maxHp = aMaxHp;
         currentHp = maxHp;
@@ -22,12 +22,12 @@ class Creature {
         defence = aDefence;
         startAmount = 1;
         currentAmount = startAmount;
-        geberish = aGeberish;
+        dealDamageStrategy = aGeberish;
     }
 
 
     void attack(Creature aDefender) {
-        int damageToDeal = geberish.calculateDamageToDeal(this, aDefender);
+        int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aDefender);
         aDefender.dealDamageToMe(damageToDeal);
         aDefender.counterAttack(this);
     }
@@ -43,7 +43,7 @@ class Creature {
 
     private void counterAttack(Creature aAttacker) {
         if (!counterAttacked) {
-            int damageToDeal = geberish.calculateDamageToDeal(this, aAttacker);
+            int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aAttacker);
             aAttacker.dealDamageToMe(damageToDeal);
             counterAttacked = true;
         }
@@ -95,7 +95,7 @@ class Creature {
         return defence;
     }
 
-    protected Geberish getGeberish() {
-        return geberish;
+    CalculateDamageStrategyIf getDealDamageStrategy() {
+        return dealDamageStrategy;
     }
 }

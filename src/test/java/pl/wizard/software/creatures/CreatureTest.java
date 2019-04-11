@@ -19,11 +19,11 @@ class CreatureTest {
     }
 
     private Creature prepareImp() {
-        return new Creature("Imp",4, Range.closed(2,3),3, new Geberish());
+        return new Creature("Imp",4, Range.closed(2,3),3, new LowerDamageStragegy());
     }
 
     private Creature prepareCentaur() {
-        return new Creature("Centaur", 10,Range.closed(5,7),3, new Geberish());
+        return new Creature("Centaur", 10,Range.closed(5,7),3, new LowerDamageStragegy());
     }
 
 

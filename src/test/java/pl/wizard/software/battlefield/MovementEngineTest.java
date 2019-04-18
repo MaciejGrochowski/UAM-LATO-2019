@@ -35,5 +35,16 @@ class MovementEngineTest {
                 () -> map.move(creature2, new Point(1, 1)));
     }
 
-    
+    @Test
+    void cannotPutCreatureToNotEmptyTile() {
+        Creature creature1 = new Creature("Imp", 4, Range.closed(2, 3), 3);
+        Creature creature2 = new Creature("Imp", 4, Range.closed(2, 3), 3);
+
+        BattleMap map = new BattleMap();
+        map.put(creature1, new Point(1, 1));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> map.put(creature2, new Point(1, 1)));
+    }
+
 }

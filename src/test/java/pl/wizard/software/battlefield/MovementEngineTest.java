@@ -34,4 +34,6 @@ class MovementEngineTest {
         assertThrows(IllegalArgumentException.class,
                 () -> map.move(creature2, new Point(1, 1)));
     }
+
+    
 }

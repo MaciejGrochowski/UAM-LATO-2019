@@ -15,6 +15,9 @@ class BattleMap {
     }
 
     void move(Creature aCreature, Point aPoint) {
+        if (map.containsValue(aPoint)){
+            throw new IllegalArgumentException("Field is not empty");
+        }
         map.replace(aCreature, aPoint);
     }
 

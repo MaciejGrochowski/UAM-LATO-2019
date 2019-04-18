@@ -13,8 +13,10 @@ public class Creature {
     private int startAmount;
     private int currentAmount;
     private final CalculateDamageStrategyIf dealDamageStrategy;
+    private int speed;
 
-    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence){
+
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence){
         this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
     }
 
@@ -27,8 +29,13 @@ public class Creature {
         startAmount = 1;
         currentAmount = startAmount;
         dealDamageStrategy = aDamageStrategy;
+        speed = 1;
     }
 
+    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, int aSpeed){
+        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
+        speed = aSpeed;
+    }
 
     void attack(Creature aDefender) {
         int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aDefender);

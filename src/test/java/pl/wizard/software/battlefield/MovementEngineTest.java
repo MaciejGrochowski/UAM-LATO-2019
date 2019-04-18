@@ -19,8 +19,8 @@ class MovementEngineTest {
 
     @BeforeEach
     void init(){
-        creature1 = new Creature("Imp", 4, Range.closed(2, 3), 3);
-        creature2 = new Creature("Imp", 4, Range.closed(2, 3), 3);
+        creature1 = new Creature("Imp", 4, Range.closed(2, 3), 3,1);
+        creature2 = new Creature("Imp", 4, Range.closed(2, 3), 3, 2);
         map = new BattleMap();
     }
 
@@ -52,7 +52,6 @@ class MovementEngineTest {
 
     @Test
     void finalMovingTest() {
-        BattleMap map = new BattleMap();
         map.put(creature1, new Point(1, 1));
         map.put(creature2, new Point(2, 2));
         map.move(creature2, new Point(3, 3));
@@ -62,8 +61,9 @@ class MovementEngineTest {
 
     @Test
     void creatureShouldNotCanMoveMoreThanHerSpeed(){
+        map.put(creature1, new Point(1,1));
 
-
-
+        assertThrows(IllegalArgumentException.class,
+                () -> map.move(creature2, new Point(2, 2)));
     }
 }

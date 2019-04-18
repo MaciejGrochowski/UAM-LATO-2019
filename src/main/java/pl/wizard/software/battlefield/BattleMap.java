@@ -11,17 +11,24 @@ class BattleMap {
     private final Map<Creature, Point> map = new HashMap<>();
 
     void put(Creature aCreature, Point aPoint) {
-        if (map.containsValue(aPoint)){
+        if (map.containsValue(aPoint)) {
             throw new IllegalArgumentException("Field is not empty");
         }
         map.put(aCreature, aPoint);
     }
 
-    void move(Creature aCreature, Point aPoint) {
-        if (map.containsValue(aPoint)){
+    void move(Creature aCreature, Point aNewPoint) {
+        if (map.containsValue(aNewPoint)) {
             throw new IllegalArgumentException("Field is not empty");
         }
-        map.replace(aCreature, aPoint);
+        int moveRange = aCreature.getSpeed();
+        Point oldPoint = map.get(aCreature);
+
+        if (aNewPoint.distance(oldPoint) > moveRange) {
+            throw new IllegalArgumentException("Creature has only " + moveRange + " speed");
+        }
+
+        map.replace(aCreature, aNewPoint);
     }
 
     Point getCreaturePosition(Creature aCreature) {

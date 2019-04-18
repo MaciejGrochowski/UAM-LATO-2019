@@ -109,4 +109,8 @@ public class Creature {
     CalculateDamageStrategyIf getDealDamageStrategy() {
         return dealDamageStrategy;
     }
+
+    public int getSpeed() {
+        return speed;
+    }
 }

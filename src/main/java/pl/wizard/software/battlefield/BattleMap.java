@@ -8,7 +8,7 @@ import java.util.Map;
 
 class BattleMap {
 
-    Map<Creature, Point> map = new HashMap<>();
+    private final Map<Creature, Point> map = new HashMap<>();
 
     void put(Creature aCreature, Point aPoint) {
         map.put(aCreature, aPoint);

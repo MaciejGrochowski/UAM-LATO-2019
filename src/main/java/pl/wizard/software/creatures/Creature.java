@@ -2,7 +2,7 @@ package pl.wizard.software.creatures;
 
 import com.google.common.collect.Range;
 
-class Creature {
+public class Creature {
 
     private final String name;
     private final int maxHp;
@@ -12,7 +12,11 @@ class Creature {
     private boolean counterAttacked;
     private int startAmount;
     private int currentAmount;
-    private CalculateDamageStrategyIf dealDamageStrategy;
+    private final CalculateDamageStrategyIf dealDamageStrategy;
+
+    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence){
+        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
+    }
 
     Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aDamageStrategy) {
         name = aName;

@@ -6,6 +6,7 @@ import pl.wizard.software.creatures.Creature;
 
 import java.awt.*;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -47,4 +48,16 @@ class MovementEngineTest {
                 () -> map.put(creature2, new Point(1, 1)));
     }
 
+    @Test
+    void finalMovingTest() {
+        Creature creature1 = new Creature("Imp", 4, Range.closed(2, 3), 3);
+        Creature creature2 = new Creature("Imp", 4, Range.closed(2, 3), 3);
+
+        BattleMap map = new BattleMap();
+        map.put(creature1, new Point(1, 1));
+        map.put(creature2, new Point(2, 2));
+        map.move(creature2, new Point(3, 3));
+
+        assertDoesNotThrow(() -> map.move(creature1, new Point(2, 2)));
+    }
 }

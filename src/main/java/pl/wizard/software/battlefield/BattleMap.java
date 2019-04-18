@@ -11,6 +11,9 @@ class BattleMap {
     private final Map<Creature, Point> map = new HashMap<>();
 
     void put(Creature aCreature, Point aPoint) {
+        if (map.containsValue(aPoint)){
+            throw new IllegalArgumentException("Field is not empty");
+        }
         map.put(aCreature, aPoint);
     }
 

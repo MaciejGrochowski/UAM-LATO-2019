@@ -76,4 +76,16 @@ class MovementEngineTest {
         assertThrows(IllegalArgumentException.class,
                 () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT + 1)));
     }
+
+    @Test
+    void shouldThrowExceptionWhileTryToMoveCreatureOutsideMap(){
+        map.put(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> map.move(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT)));
+        assertThrows(IllegalArgumentException.class,
+                () -> map.move(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT + 1)));
+        assertThrows(IllegalArgumentException.class,
+                () -> map.move(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT + 1)));
+    }
 }

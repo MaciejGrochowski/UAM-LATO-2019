@@ -53,10 +53,10 @@ class MovementEngineTest {
     @Test
     void finalMovingTest() {
         map.put(creature1, new Point(1, 1));
-        map.put(creature2, new Point(2, 2));
-        map.move(creature2, new Point(3, 3));
+        map.put(creature2, new Point(1, 2));
+        map.move(creature2, new Point(1, 3));
 
-        assertDoesNotThrow(() -> map.move(creature1, new Point(2, 2)));
+        assertDoesNotThrow(() -> map.move(creature1, new Point(1, 2)));
     }
 
     @Test

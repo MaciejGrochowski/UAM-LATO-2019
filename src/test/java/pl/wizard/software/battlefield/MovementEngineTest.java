@@ -28,9 +28,9 @@ class MovementEngineTest {
     void creatureShouldMoveOneTileInRight() {
         map.put(creature1, new Point(1, 1));
 
-        map.move(creature1, new Point(3, 2));
+        map.move(creature1, new Point(1, 2));
 
-        assertEquals(new Point(3, 2), map.getCreaturePosition(creature1));
+        assertEquals(new Point(1, 2), map.getCreaturePosition(creature1));
     }
 
     @Test

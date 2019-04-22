@@ -22,19 +22,12 @@ class BattleMap {
     }
 
     void put(Creature aCreature, Point aPoint) {
-        if (map.containsValue(aPoint)) {
-            throw new IllegalArgumentException("Field is not empty");
-        }
-        if(!width.contains((int)aPoint.getX()) || !height.contains((int)aPoint.getY())){
-            throw new IllegalArgumentException("You are trying to add creature outside the map!");
-        }
+        checkPointIsAllow(aPoint);
         map.put(aCreature, aPoint);
     }
 
     void move(Creature aCreature, Point aNewPoint) {
-        if (map.containsValue(aNewPoint)) {
-            throw new IllegalArgumentException("Field is not empty");
-        }
+        checkPointIsAllow(aNewPoint);
         int moveRange = aCreature.getSpeed();
         Point oldPoint = map.get(aCreature);
 
@@ -43,6 +36,15 @@ class BattleMap {
         }
 
         map.replace(aCreature, aNewPoint);
+    }
+
+    private void checkPointIsAllow(Point aPoint) {
+        if (map.containsValue(aPoint)) {
+            throw new IllegalArgumentException("Field is not empty");
+        }
+        if(!width.contains((int)aPoint.getX()) || !height.contains((int)aPoint.getY())){
+            throw new IllegalArgumentException("You are trying to add creature outside the map!");
+        }
     }
 
     Point getCreaturePosition(Creature aCreature) {

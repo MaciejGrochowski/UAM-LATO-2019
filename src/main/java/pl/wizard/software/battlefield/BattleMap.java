@@ -8,6 +8,8 @@ import java.util.Map;
 
 class BattleMap {
 
+    static final int MAX_WIDTH = 15;
+    static final int MAX_HEIGHT = 10;
     private final Map<Creature, Point> map = new HashMap<>();
 
     void put(Creature aCreature, Point aPoint) {

@@ -18,8 +18,8 @@ class MovementEngineTest {
     private BattleMap map;
 
     @BeforeEach
-    void init(){
-        creature1 = new Creature("Imp", 4, Range.closed(2, 3), 3,1);
+    void init() {
+        creature1 = new Creature("Imp", 4, Range.closed(2, 3), 3, 1);
         creature2 = new Creature("Imp", 4, Range.closed(2, 3), 3, 2);
         map = new BattleMap();
     }
@@ -60,10 +60,20 @@ class MovementEngineTest {
     }
 
     @Test
-    void creatureShouldNotCanMoveMoreThanHerSpeed(){
-        map.put(creature1, new Point(1,1));
+    void creatureShouldNotCanMoveMoreThanHerSpeed() {
+        map.put(creature1, new Point(1, 1));
 
         assertThrows(IllegalArgumentException.class,
                 () -> map.move(creature1, new Point(2, 2)));
+    }
+
+    @Test
+    void shouldThrowExceptionWhileTryToPutCreatureOutisdeTheMap() {
+        assertThrows(IllegalArgumentException.class,
+                () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT)));
+        assertThrows(IllegalArgumentException.class,
+                () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT + 1)));
+        assertThrows(IllegalArgumentException.class,
+                () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT + 1)));
     }
 }

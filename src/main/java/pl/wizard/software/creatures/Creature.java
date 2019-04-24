@@ -15,7 +15,6 @@ public class Creature {
     private final CalculateDamageStrategyIf dealDamageStrategy;
     private int speed;
 
-
     Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence){
         this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
     }

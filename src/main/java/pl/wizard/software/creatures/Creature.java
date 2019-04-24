@@ -112,4 +112,11 @@ public class Creature {
     public int getSpeed() {
         return speed;
     }
+
+    @Override
+    public String toString() {
+        return "Creature{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

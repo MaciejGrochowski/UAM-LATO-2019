@@ -1,6 +1,7 @@
 package pl.wizard.software.battlefield;
 
 import com.google.common.collect.Range;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.wizard.software.creatures.Creature;
 import pl.wizard.software.player.Hero;
@@ -10,6 +11,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BattleEngineTest {
 
     private static final int NOT_IMPORTANT = 0;
+    
+    private Hero heroWithImp;
+    private Hero heroWithCentaur;
+    private Creature imp;
+    private Creature centaur;
+
+    @BeforeEach
+    void init(){
+        imp = new Creature("Imp", 4, Range.closed(2, 3), 3, 14);
+        heroWithImp = new Hero();
+        heroWithImp.addCreature(imp);
+
+        centaur = new Creature("Centaur", 10, Range.closed(4, 7), 3, 15);
+        heroWithCentaur = new Hero();
+        heroWithCentaur.addCreature(centaur);
+    }
 
     @Test
     void shouldPrepareCorrectCreatureQueue() {
@@ -53,18 +70,17 @@ class BattleEngineTest {
 
     @Test
     void creatureShouldResetCounterAttackAfterEndOfTurn() {
-        Creature imp = new Creature("Imp", 4, Range.closed(2, 3), 3, 14);
-        Hero p1 = new Hero();
-        p1.addCreature(imp);
-        Creature centaur = new Creature("Centaur", 10, Range.closed(4, 7), 3, 15);
-        Hero p2 = new Hero();
-        p2.addCreature(centaur);
-        BattleEngine engine = new BattleEngine(p1,p2);
+        BattleEngine engine = new BattleEngine(heroWithImp,heroWithCentaur);
 
         engine.attack(imp);
         engine.pass();
         engine.attack(imp);
 
         assertEquals(8, centaur.getCurrentHp());
+    }
+    
+    @Test
+    void afterAttackEngineShouldChangeCurrentCreature(){
+        
     }
 }

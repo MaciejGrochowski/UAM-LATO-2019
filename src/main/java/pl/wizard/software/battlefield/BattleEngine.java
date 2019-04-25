@@ -20,6 +20,7 @@ public class BattleEngine {
     private Creature currentCreature;
     private final PropertyChangeSupport listenersSupport;
     private final BattleMap battleMap;
+    private boolean wasMovedInThisTurn;
 
     public BattleEngine(Hero aHero1, Hero aHero2) {
         heroes = new Pair(aHero1, aHero2);
@@ -36,7 +37,7 @@ public class BattleEngine {
 
     }
 
-    public void addPropertyChangeListener(String aPropertyName, PropertyChangeListener aListener){
+    public void addPropertyChangeListener(String aPropertyName, PropertyChangeListener aListener) {
         listenersSupport.addPropertyChangeListener(aPropertyName, aListener);
     }
 
@@ -50,6 +51,7 @@ public class BattleEngine {
 
     private void nextCreature() {
         currentCreature = creaturesQueue.poll();
+        wasMovedInThisTurn = false;
         creatureMovedInThisTurn.add(currentCreature);
 
         if (creaturesQueue.isEmpty()) {
@@ -60,7 +62,7 @@ public class BattleEngine {
     }
 
     void endOfTrun() {
-        listenersSupport.firePropertyChange(END_OF_TURN,null,null);
+        listenersSupport.firePropertyChange(END_OF_TURN, null, null);
     }
 
     Creature getCurrentCreature() {
@@ -82,5 +84,12 @@ public class BattleEngine {
 
     boolean isMovePossible(Point aPoint) {
         return battleMap.isMovePossible(currentCreature, aPoint);
+    }
+
+    void move(Point aPoint) {
+        if (!wasMovedInThisTurn) {
+            battleMap.move(currentCreature, aPoint);
+            wasMovedInThisTurn = true;
+        }
     }
 }

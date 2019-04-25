@@ -154,4 +154,17 @@ class BattleEngineTest {
 
         assertFalse(engine.isMovePossible(new Point(0,15)));
     }
+
+    @Test
+    void creatureCanMoveOnlyOnce(){
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+        engine.move(new Point(14,3));
+        engine.move(new Point(13,5));
+
+        assertEquals(new Point(14,3), engine.getCreaturePosition(centaur));
+        engine.pass();
+
+        engine.move(new Point(1,1));
+        assertEquals(new Point(1,1), engine.getCreaturePosition(imp));
+    }
 }

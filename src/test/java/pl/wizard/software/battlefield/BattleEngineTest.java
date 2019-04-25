@@ -74,6 +74,8 @@ class BattleEngineTest {
     void creatureShouldResetCounterAttackAfterEndOfTurn() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
+        engine.move(new Point(1,1));
+
         engine.attack(imp);
         engine.pass();
         engine.attack(imp);
@@ -86,6 +88,7 @@ class BattleEngineTest {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
         assertEquals(centaur, engine.getCurrentCreature());
+        engine.move(new Point(1,1));
         engine.attack(imp);
         assertEquals(imp, engine.getCurrentCreature());
     }

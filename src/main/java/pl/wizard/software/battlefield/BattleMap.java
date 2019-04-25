@@ -17,8 +17,7 @@ class BattleMap {
     private final Range<Integer> height;
 
     BattleMap(){
-        this(null, null);
-
+        this(new Hero(), new Hero());
     }
 
     public BattleMap(Hero aHero1, Hero aHero2) {

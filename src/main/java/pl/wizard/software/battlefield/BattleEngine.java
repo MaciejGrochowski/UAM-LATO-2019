@@ -79,4 +79,8 @@ public class BattleEngine {
     Point getCreaturePosition(Creature aCreature) {
         return battleMap.getCreaturePosition(aCreature);
     }
+
+    boolean isMovePossible(Point aPoint) {
+        return battleMap.isMovePossible(currentCreature, aPoint);
+    }
 }

@@ -9,6 +9,8 @@ import pl.wizard.software.player.Hero;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BattleEngineTest {
 
@@ -137,5 +139,19 @@ class BattleEngineTest {
         assertEquals(new Point(BattleMap.MAX_WIDTH,5), engine.getCreaturePosition(h2c3));
         assertEquals(new Point(BattleMap.MAX_WIDTH,7), engine.getCreaturePosition(h2c4));
         assertEquals(new Point(BattleMap.MAX_WIDTH,9), engine.getCreaturePosition(h2c5));
+    }
+
+    @Test
+    void shouldReturnTrueIfCreatureCanMoveToIndicatedPoint(){
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+
+        assertTrue(engine.isMovePossible(new Point(14,14)));
+    }
+
+    @Test
+    void shouldReturnFalseIfCreatureCannnotMoveToIndicatedPoint(){
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+
+        assertFalse(engine.isMovePossible(new Point(0,15)));
     }
 }

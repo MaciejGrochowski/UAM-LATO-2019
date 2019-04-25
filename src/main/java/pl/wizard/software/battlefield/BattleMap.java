@@ -65,4 +65,8 @@ class BattleMap {
     Point getCreaturePosition(Creature aCreature) {
         return map.get(aCreature);
     }
+
+    boolean isMovePossible(Creature aCreature, Point aPoint) {
+        return !map.containsValue(aPoint) && (width.contains((int)aPoint.getX()) || height.contains((int)aPoint.getY())) && aPoint.distance(map.get(aCreature)) < aCreature.getSpeed();
+    }
 }

@@ -2,6 +2,7 @@ package pl.wizard.software.battlefield;
 
 import com.google.common.collect.Range;
 import pl.wizard.software.creatures.Creature;
+import pl.wizard.software.player.Hero;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -16,9 +17,22 @@ class BattleMap {
     private final Range<Integer> height;
 
     BattleMap(){
+        this(new Hero(), new Hero());
+    }
+
+    public BattleMap(Hero aHero1, Hero aHero2) {
         map = new HashMap<>();
         width = Range.closed(0,MAX_WIDTH);
         height = Range.closed(0,MAX_HEIGHT);
+
+        putAllHeroCreaturesIntoMap(aHero1, 0);
+        putAllHeroCreaturesIntoMap(aHero2, MAX_WIDTH);
+    }
+
+    private void putAllHeroCreaturesIntoMap(Hero aHero1, int aAI) {
+        for (int i = 0; i < aHero1.getCreatures().size(); i++) {
+            map.put(aHero1.getCreatures().get(i), new Point(aAI, 1 + i * 2));
+        }
     }
 
     void put(Creature aCreature, Point aPoint) {
@@ -49,5 +63,9 @@ class BattleMap {
 
     Point getCreaturePosition(Creature aCreature) {
         return map.get(aCreature);
+    }
+
+    boolean isMovePossible(Creature aCreature, Point aPoint) {
+        return !map.containsValue(aPoint) && (width.contains((int)aPoint.getX()) || height.contains((int)aPoint.getY())) && aPoint.distance(map.get(aCreature)) < aCreature.getSpeed();
     }
 }

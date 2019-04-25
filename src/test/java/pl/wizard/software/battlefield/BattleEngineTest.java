@@ -100,4 +100,42 @@ class BattleEngineTest {
         assertEquals(new Point(0,1), impPosition);
         assertEquals(new Point(15,1), centaurPosition);
     }
+
+    @Test
+    void shouldPutAllCreatures() {
+        Creature c1 = new Creature("C1", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature c2 = new Creature("C2", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature c3 = new Creature("C3", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature c4 = new Creature("C4", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature c5 = new Creature("C5", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Hero hero1 = new Hero();
+        hero1.addCreature(c1);
+        hero1.addCreature(c2);
+        hero1.addCreature(c3);
+        hero1.addCreature(c4);
+        hero1.addCreature(c5);
+        Creature h2c1 = new Creature("H2_C1", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature h2c2 = new Creature("H2_C2", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature h2c3 = new Creature("H2_C3", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature h2c4 = new Creature("H2_C4", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Creature h2c5 = new Creature("H2_C5", NOT_IMPORTANT, Range.closed(NOT_IMPORTANT, NOT_IMPORTANT), NOT_IMPORTANT, NOT_IMPORTANT);
+        Hero hero2 = new Hero();
+        hero2.addCreature(h2c1);
+        hero2.addCreature(h2c2);
+        hero2.addCreature(h2c3);
+        hero2.addCreature(h2c4);
+        hero2.addCreature(h2c5);
+        BattleEngine engine = new BattleEngine(hero1, hero2);
+
+        assertEquals(new Point(0,1), engine.getCreaturePosition(c1));
+        assertEquals(new Point(0,3), engine.getCreaturePosition(c2));
+        assertEquals(new Point(0,5), engine.getCreaturePosition(c3));
+        assertEquals(new Point(0,7), engine.getCreaturePosition(c4));
+        assertEquals(new Point(0,9), engine.getCreaturePosition(c5));
+        assertEquals(new Point(BattleMap.MAX_WIDTH,1), engine.getCreaturePosition(h2c1));
+        assertEquals(new Point(BattleMap.MAX_WIDTH,3), engine.getCreaturePosition(h2c2));
+        assertEquals(new Point(BattleMap.MAX_WIDTH,5), engine.getCreaturePosition(h2c3));
+        assertEquals(new Point(BattleMap.MAX_WIDTH,7), engine.getCreaturePosition(h2c4));
+        assertEquals(new Point(BattleMap.MAX_WIDTH,9), engine.getCreaturePosition(h2c5));
+    }
 }

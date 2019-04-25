@@ -175,6 +175,7 @@ class BattleEngineTest {
         engine.move(new Point(7, 8));
         engine.attack(centaur);
 
+        assertTrue(engine.isAttackPossible(imp));
         assertNotEquals(centaur.getMaxHp(), centaur.getCurrentHp());
         assertNotEquals(imp.getMaxHp(), imp.getCurrentHp());
     }
@@ -183,6 +184,7 @@ class BattleEngineTest {
     void shouldThrowExpceptionWhenCreatureTryingToAttackWhenCreaturesAreNotNextToEachOther() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
+        assertFalse(engine.isAttackPossible(imp));
         assertThrows(IllegalArgumentException.class, () -> engine.attack(centaur));
     }
 }

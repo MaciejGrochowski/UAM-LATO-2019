@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import pl.wizard.software.creatures.Creature;
 import pl.wizard.software.player.Hero;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BattleEngineTest {
@@ -86,5 +88,16 @@ class BattleEngineTest {
         assertEquals(centaur, engine.getCurrentCreature());
         engine.attack(imp);
         assertEquals(imp, engine.getCurrentCreature());
+    }
+
+    @Test
+    void creaturesShouldBePutInFirstAndLastRow(){
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+
+        Point impPosition = engine.getCreaturePosition(imp);
+        Point centaurPosition = engine.getCreaturePosition(centaur);
+
+        assertEquals(new Point(0,1), impPosition);
+        assertEquals(new Point(15,1), centaurPosition);
     }
 }

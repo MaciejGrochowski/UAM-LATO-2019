@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BattleEngineTest {
 
     private static final int NOT_IMPORTANT = 0;
-    
+
     private Hero heroWithImp;
     private Hero heroWithCentaur;
     private Creature imp;
     private Creature centaur;
 
     @BeforeEach
-    void init(){
+    void init() {
         imp = new Creature("Imp", 4, Range.closed(2, 3), 3, 14);
         heroWithImp = new Hero();
         heroWithImp.addCreature(imp);
@@ -70,7 +70,7 @@ class BattleEngineTest {
 
     @Test
     void creatureShouldResetCounterAttackAfterEndOfTurn() {
-        BattleEngine engine = new BattleEngine(heroWithImp,heroWithCentaur);
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
         engine.attack(imp);
         engine.pass();
@@ -78,9 +78,13 @@ class BattleEngineTest {
 
         assertEquals(8, centaur.getCurrentHp());
     }
-    
+
     @Test
-    void afterAttackEngineShouldChangeCurrentCreature(){
-        
+    void afterAttackEngineShouldChangeCurrentCreature() {
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+
+        assertEquals(centaur, engine.getCurrentCreature());
+        engine.attack(imp);
+        assertEquals(imp, engine.getCurrentCreature());
     }
 }

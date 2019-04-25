@@ -4,9 +4,11 @@ import javafx.util.Pair;
 import pl.wizard.software.creatures.Creature;
 import pl.wizard.software.player.Hero;
 
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BattleEngine {
@@ -17,9 +19,12 @@ public class BattleEngine {
     private final List<Creature> creatureMovedInThisTurn;
     private Creature currentCreature;
     private final PropertyChangeSupport listenersSupport;
+    private final BattleMap battleMap;
 
     public BattleEngine(Hero aHero1, Hero aHero2) {
         heroes = new Pair(aHero1, aHero2);
+        battleMap = new BattleMap(aHero1, aHero2);
+
         creaturesQueue = new LinkedList<>();
         creatureMovedInThisTurn = new ArrayList<>();
 
@@ -27,8 +32,8 @@ public class BattleEngine {
         listenersSupport = new PropertyChangeSupport(this);
         allCreatures.forEach(c -> c.subscribeMe(this));
         creaturesQueue.addAll(allCreatures);
-
         nextCreature();
+
     }
 
     public void addPropertyChangeListener(String aPropertyName, PropertyChangeListener aListener){
@@ -69,5 +74,9 @@ public class BattleEngine {
     void attack(Creature aTarget) {
         currentCreature.attack(aTarget);
         nextCreature();
+    }
+
+    Point getCreaturePosition(Creature aCreature) {
+        return battleMap.getCreaturePosition(aCreature);
     }
 }

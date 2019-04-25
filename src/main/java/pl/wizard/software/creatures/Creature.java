@@ -1,6 +1,7 @@
 package pl.wizard.software.creatures;
 
 import com.google.common.collect.Range;
+import pl.wizard.software.battlefield.BattleEngine;
 
 public class Creature {
 
@@ -15,7 +16,7 @@ public class Creature {
     private final CalculateDamageStrategyIf dealDamageStrategy;
     private int speed;
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence){
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
         this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
     }
 
@@ -31,12 +32,12 @@ public class Creature {
         speed = 1;
     }
 
-    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, int aSpeed){
+    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, int aSpeed) {
         this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
         speed = aSpeed;
     }
 
-    void attack(Creature aDefender) {
+    public void attack(Creature aDefender) {
         int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aDefender);
         aDefender.dealDamageToMe(damageToDeal);
         aDefender.counterAttack(this);
@@ -44,10 +45,10 @@ public class Creature {
 
     private void dealDamageToMe(int aDamageToDeal) {
         int bufor = aDamageToDeal;
-                while(bufor >= currentHp){
-                    currentAmount -= 1;
-                    bufor -= maxHp;
-                }
+        while (bufor >= currentHp) {
+            currentAmount -= 1;
+            bufor -= maxHp;
+        }
         currentHp -= bufor;
     }
 
@@ -59,6 +60,12 @@ public class Creature {
         }
     }
 
+    public void subscribeMe(BattleEngine aEngine) {
+        aEngine.addPropertyChangeListener(BattleEngine.END_OF_TURN, (e -> {
+            counterAttacked = false;
+        }));
+    }
+
 //    protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
 //        int damageToDeal = aAtacker.attack.lowerEndpoint() - aDefender.defence;
 //        if (damageToDeal > 0) {
@@ -68,7 +75,7 @@ public class Creature {
 //        }
 //    }
 
-    int getCurrentHp() {
+    public int getCurrentHp() {
         return currentHp;
     }
 

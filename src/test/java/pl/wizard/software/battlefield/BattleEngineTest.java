@@ -7,7 +7,7 @@ import pl.wizard.software.player.Hero;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GameEngineTest {
+class BattleEngineTest {
 
     private static final int NOT_IMPORTANT = 0;
 
@@ -38,5 +38,16 @@ class GameEngineTest {
         assertEquals(H1_S1,engine.getCurrentCreature());
         engine.pass();
         assertEquals(H2_S5,engine.getCurrentCreature());
+        engine.pass();
+        assertEquals(H1_S4,engine.getCurrentCreature());
+        engine.pass();
+        assertEquals(H1_S3,engine.getCurrentCreature());
+        engine.pass();
+        assertEquals(H2_S2,engine.getCurrentCreature());
+        engine.pass();
+        assertEquals(H1_S1,engine.getCurrentCreature());
+        engine.pass();
+        assertEquals(H2_S5,engine.getCurrentCreature());
+        engine.pass();
     }
 }

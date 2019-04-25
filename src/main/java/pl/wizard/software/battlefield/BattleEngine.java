@@ -11,23 +11,41 @@ class BattleEngine {
 
     private final Pair<Hero, Hero> heroes;
     private final Queue<Creature> creaturesQueue;
+    private final List<Creature> creatureMovedInThisTurn;
     private Creature currentCreature;
 
     public BattleEngine(Hero aHero1, Hero aHero2) {
         heroes = new Pair(aHero1, aHero2);
         creaturesQueue = new LinkedList<>();
-        List<Creature> allCreatures = new ArrayList<>();
-        allCreatures.addAll(aHero1.getCreatures());
-        allCreatures.addAll(aHero2.getCreatures());
-        allCreatures = allCreatures.stream().sorted(Comparator.comparingInt(Creature::getSpeed).reversed()).collect(Collectors.toList());
+        creatureMovedInThisTurn = new ArrayList<>();
+
+        List<Creature> allCreatures = sortAllCreaturesBySpeed(aHero1, aHero2);
         creaturesQueue.addAll(allCreatures);
 
         nextCreature();
     }
 
+    private List<Creature> sortAllCreaturesBySpeed(Hero aHero1, Hero aHero2) {
+        List<Creature> allCreatures = new ArrayList<>();
+        allCreatures.addAll(aHero1.getCreatures());
+        allCreatures.addAll(aHero2.getCreatures());
+        allCreatures = allCreatures.stream().sorted(Comparator.comparingInt(Creature::getSpeed).reversed()).collect(Collectors.toList());
+        return allCreatures;
+    }
+
     private void nextCreature() {
         currentCreature = creaturesQueue.poll();
-        creaturesQueue.add(currentCreature);
+        creatureMovedInThisTurn.add(currentCreature);
+
+        if (creaturesQueue.isEmpty()) {
+            endOfTrun();
+            creaturesQueue.addAll(creatureMovedInThisTurn);
+            creatureMovedInThisTurn.clear();
+        }
+    }
+
+    private void endOfTrun() {
+
     }
 
     Creature getCurrentCreature() {
@@ -37,6 +55,4 @@ class BattleEngine {
     void pass() {
         nextCreature();
     }
-
-
 }

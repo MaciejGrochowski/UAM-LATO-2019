@@ -79,7 +79,7 @@ public class Creature {
         return currentHp;
     }
 
-    int getMaxHp() {
+    public int getMaxHp() {
         return maxHp;
     }
 

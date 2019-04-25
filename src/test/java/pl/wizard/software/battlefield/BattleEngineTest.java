@@ -8,9 +8,7 @@ import pl.wizard.software.player.Hero;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BattleEngineTest {
 
@@ -93,14 +91,14 @@ class BattleEngineTest {
     }
 
     @Test
-    void creaturesShouldBePutInFirstAndLastRow(){
+    void creaturesShouldBePutInFirstAndLastRow() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
         Point impPosition = engine.getCreaturePosition(imp);
         Point centaurPosition = engine.getCreaturePosition(centaur);
 
-        assertEquals(new Point(0,1), impPosition);
-        assertEquals(new Point(15,1), centaurPosition);
+        assertEquals(new Point(0, 1), impPosition);
+        assertEquals(new Point(15, 1), centaurPosition);
     }
 
     @Test
@@ -129,42 +127,62 @@ class BattleEngineTest {
         hero2.addCreature(h2c5);
         BattleEngine engine = new BattleEngine(hero1, hero2);
 
-        assertEquals(new Point(0,1), engine.getCreaturePosition(c1));
-        assertEquals(new Point(0,3), engine.getCreaturePosition(c2));
-        assertEquals(new Point(0,5), engine.getCreaturePosition(c3));
-        assertEquals(new Point(0,7), engine.getCreaturePosition(c4));
-        assertEquals(new Point(0,9), engine.getCreaturePosition(c5));
-        assertEquals(new Point(BattleMap.MAX_WIDTH,1), engine.getCreaturePosition(h2c1));
-        assertEquals(new Point(BattleMap.MAX_WIDTH,3), engine.getCreaturePosition(h2c2));
-        assertEquals(new Point(BattleMap.MAX_WIDTH,5), engine.getCreaturePosition(h2c3));
-        assertEquals(new Point(BattleMap.MAX_WIDTH,7), engine.getCreaturePosition(h2c4));
-        assertEquals(new Point(BattleMap.MAX_WIDTH,9), engine.getCreaturePosition(h2c5));
+        assertEquals(new Point(0, 1), engine.getCreaturePosition(c1));
+        assertEquals(new Point(0, 3), engine.getCreaturePosition(c2));
+        assertEquals(new Point(0, 5), engine.getCreaturePosition(c3));
+        assertEquals(new Point(0, 7), engine.getCreaturePosition(c4));
+        assertEquals(new Point(0, 9), engine.getCreaturePosition(c5));
+        assertEquals(new Point(BattleMap.MAX_WIDTH, 1), engine.getCreaturePosition(h2c1));
+        assertEquals(new Point(BattleMap.MAX_WIDTH, 3), engine.getCreaturePosition(h2c2));
+        assertEquals(new Point(BattleMap.MAX_WIDTH, 5), engine.getCreaturePosition(h2c3));
+        assertEquals(new Point(BattleMap.MAX_WIDTH, 7), engine.getCreaturePosition(h2c4));
+        assertEquals(new Point(BattleMap.MAX_WIDTH, 9), engine.getCreaturePosition(h2c5));
     }
 
     @Test
-    void shouldReturnTrueIfCreatureCanMoveToIndicatedPoint(){
+    void shouldReturnTrueIfCreatureCanMoveToIndicatedPoint() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
-        assertTrue(engine.isMovePossible(new Point(14,14)));
+        assertTrue(engine.isMovePossible(new Point(14, 14)));
     }
 
     @Test
-    void shouldReturnFalseIfCreatureCannnotMoveToIndicatedPoint(){
+    void shouldReturnFalseIfCreatureCannnotMoveToIndicatedPoint() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
-        assertFalse(engine.isMovePossible(new Point(0,15)));
+        assertFalse(engine.isMovePossible(new Point(0, 15)));
     }
 
     @Test
-    void creatureCanMoveOnlyOnce(){
+    void creatureCanMoveOnlyOnce() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
-        engine.move(new Point(14,3));
-        engine.move(new Point(13,5));
+        engine.move(new Point(14, 3));
+        engine.move(new Point(13, 5));
 
-        assertEquals(new Point(14,3), engine.getCreaturePosition(centaur));
+        assertEquals(new Point(14, 3), engine.getCreaturePosition(centaur));
         engine.pass();
 
-        engine.move(new Point(1,1));
-        assertEquals(new Point(1,1), engine.getCreaturePosition(imp));
+        engine.move(new Point(1, 1));
+        assertEquals(new Point(1, 1), engine.getCreaturePosition(imp));
+    }
+
+    @Test
+    void shouldReturnTrueIfCreaturesAreNextToEachOther() {
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+
+        engine.move(new Point(7, 7));
+        engine.pass();
+        engine.move(new Point(7, 8));
+        engine.attack(centaur);
+
+        assertNotEquals(centaur.getMaxHp(), centaur.getCurrentHp());
+        assertNotEquals(imp.getMaxHp(), imp.getCurrentHp());
+    }
+
+    @Test
+    void shouldThrowExpceptionWhenCreatureTryingToAttackWhenCreaturesAreNotNextToEachOther() {
+        BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
+
+        assertThrows(IllegalArgumentException.class, () -> engine.attack(centaur));
     }
 }

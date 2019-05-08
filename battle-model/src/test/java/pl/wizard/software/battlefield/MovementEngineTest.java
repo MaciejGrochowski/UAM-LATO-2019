@@ -30,7 +30,7 @@ class MovementEngineTest {
 
         map.move(creature1, new Point(1, 2));
 
-        assertEquals(new Point(1, 2), map.getCreaturePosition(creature1));
+        assertEquals(new Point(1, 2), map.getPositionByCreature(creature1));
     }
 
     @Test

@@ -7,6 +7,7 @@ import pl.wizard.software.player.Hero;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 class BattleMap {
 
@@ -59,11 +60,15 @@ class BattleMap {
         }
     }
 
-    Point getCreaturePosition(Creature aCreature) {
+    Point getPositionByCreature(Creature aCreature) {
         return map.get(aCreature);
     }
 
+    Optional<Creature> getCreatureByPosition(Point aPosition){
+        return map.keySet().stream().filter(creature -> map.get(creature).equals(aPosition)).findAny();
+    }
+
     boolean isMovePossible(Creature aCreature, Point aPoint) {
-        return !map.containsValue(aPoint) && (width.contains((int)aPoint.getX()) || height.contains((int)aPoint.getY())) && aPoint.distance(map.get(aCreature)) < aCreature.getSpeed();
+        return !map.containsValue(aPoint) && (width.contains((int)aPoint.getX()) || height.contains((int)aPoint.getY())) && aPoint.distance(map.get(aCreature)) <= aCreature.getSpeed();
     }
 }

@@ -85,7 +85,7 @@ public class BattleEngine {
     }
 
     Point getCreaturePosition(Creature aCreature) {
-        return battleMap.getCreaturePosition(aCreature);
+        return battleMap.getPositionByCreature(aCreature);
     }
 
     boolean isMovePossible(Point aPoint) {
@@ -100,8 +100,8 @@ public class BattleEngine {
     }
 
     boolean isAttackPossible(Creature aCreature){
-        Point defenderPosition = battleMap.getCreaturePosition(aCreature);
-        Point attackerPosition = battleMap.getCreaturePosition(currentCreature);
+        Point defenderPosition = battleMap.getPositionByCreature(aCreature);
+        Point attackerPosition = battleMap.getPositionByCreature(currentCreature);
         return defenderPosition.distance(attackerPosition) == 1;
     }
 }

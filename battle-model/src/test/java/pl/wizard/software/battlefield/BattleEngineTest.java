@@ -135,11 +135,11 @@ class BattleEngineTest {
         assertEquals(new Point(0, 5), engine.getCreaturePosition(c3));
         assertEquals(new Point(0, 7), engine.getCreaturePosition(c4));
         assertEquals(new Point(0, 9), engine.getCreaturePosition(c5));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 1), engine.getCreaturePosition(h2c1));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 3), engine.getCreaturePosition(h2c2));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 5), engine.getCreaturePosition(h2c3));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 7), engine.getCreaturePosition(h2c4));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 9), engine.getCreaturePosition(h2c5));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 1), engine.getCreaturePosition(h2c1));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 3), engine.getCreaturePosition(h2c2));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 5), engine.getCreaturePosition(h2c3));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 7), engine.getCreaturePosition(h2c4));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 9), engine.getCreaturePosition(h2c5));
     }
 
     @Test

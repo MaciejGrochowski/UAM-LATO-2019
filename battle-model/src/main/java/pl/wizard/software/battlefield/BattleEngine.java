@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 public class BattleEngine {
 
     public static final String END_OF_TURN = "END_OF_TURN";
+    public static final int MAP_MAX_WIDTH = 15;
+    public static final int MAP_MAX_HEIGHT = 10;
+
     private final Pair<Hero, Hero> heroes;
     private final Queue<Creature> creaturesQueue;
     private final List<Creature> creatureMovedInThisTurn;

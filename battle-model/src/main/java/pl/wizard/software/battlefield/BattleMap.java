@@ -10,8 +10,6 @@ import java.util.Map;
 
 class BattleMap {
 
-    static final int MAX_WIDTH = 15;
-    static final int MAX_HEIGHT = 10;
     private final Map<Creature, Point> map;
     private final Range<Integer> width;
     private final Range<Integer> height;
@@ -22,11 +20,11 @@ class BattleMap {
 
     public BattleMap(Hero aHero1, Hero aHero2) {
         map = new HashMap<>();
-        width = Range.closed(0,MAX_WIDTH);
-        height = Range.closed(0,MAX_HEIGHT);
+        width = Range.closed(0,BattleEngine.MAP_MAX_WIDTH);
+        height = Range.closed(0,BattleEngine.MAP_MAX_HEIGHT);
 
         putAllHeroCreaturesIntoMap(aHero1, 0);
-        putAllHeroCreaturesIntoMap(aHero2, MAX_WIDTH);
+        putAllHeroCreaturesIntoMap(aHero2, BattleEngine.MAP_MAX_WIDTH);
     }
 
     private void putAllHeroCreaturesIntoMap(Hero aHero1, int aAI) {

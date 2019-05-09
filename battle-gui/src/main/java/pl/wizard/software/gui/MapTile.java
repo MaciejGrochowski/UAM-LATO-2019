@@ -12,10 +12,11 @@ import java.util.Optional;
 
 class MapTile extends StackPane {
 
+    private Label creatureName;
     Point position;
     Optional<Creature> creature;
 
-    MapTile(Point aPosition, Optional<Creature> aCreature, boolean isActive) {
+    MapTile(Point aPosition, Optional<Creature> aCreature) {
         position = aPosition;
         creature = aCreature;
 
@@ -26,10 +27,7 @@ class MapTile extends StackPane {
 
 
         creature.ifPresent(c -> {
-            Label creatureName = new Label(c.toString());
-            if (isActive){
-               creatureName.setTextFill(Color.BLUE);
-            }
+                    creatureName = new Label(c.toString());
                     getChildren().add(creatureName);
                 }
         );
@@ -40,5 +38,7 @@ class MapTile extends StackPane {
         });
     }
 
-
+    protected void setActive() {
+        creatureName.setTextFill(Color.BLUE);
+    }
 }

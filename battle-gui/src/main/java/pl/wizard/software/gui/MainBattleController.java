@@ -48,12 +48,13 @@ public class MainBattleController {
 
                 Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
                 Creature currenctCreature = engine.getCurrentCreature();
-                boolean isActive = false;
+                MapTile mapTile;
                 if (creature.isPresent() && currenctCreature.equals(creature.get())) {
-                    isActive = true;
+                    mapTile = new MapTileWithActiveCreature(new Point(x, y), creature);
+                } else {
+                    mapTile = new MapTile(new Point(x, y), creature);
                 }
-                MapTile pane = new MapTile(new Point(x, y), creature, isActive);
-                gridMap.add(pane, x, y);
+                gridMap.add(mapTile, x, y);
             }
         }
     }

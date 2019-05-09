@@ -3,6 +3,7 @@ package pl.wizard.software.gui;
 import com.google.common.collect.Range;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -44,18 +45,14 @@ public class MainBattleController {
 
         for (int x = 0; x <= BattleEngine.MAP_MAX_WIDTH; x++) {
             for (int y = 0; y <= BattleEngine.MAP_MAX_HEIGHT; y++) {
-                    StackPane pane = new StackPane();
-                    Rectangle rect = new Rectangle(60, 60);
-                    rect.setFill(Color.WHITE);
-                    rect.setStroke(Color.RED);
-                    pane.getChildren().add(rect);
 
-                    Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
-                    creature.ifPresent(c -> {
-                                pane.getChildren().add(new Label(c.toString()));
-                            }
-                    );
-
+                Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
+                Creature currenctCreature = engine.getCurrentCreature();
+                boolean isActive = false;
+                if (creature.isPresent() && currenctCreature.equals(creature.get())) {
+                    isActive = true;
+                }
+                MapTile pane = new MapTile(new Point(x, y), creature, isActive);
                 gridMap.add(pane, x, y);
             }
         }

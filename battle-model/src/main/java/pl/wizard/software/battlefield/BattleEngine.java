@@ -68,7 +68,7 @@ public class BattleEngine {
         listenersSupport.firePropertyChange(END_OF_TURN, null, null);
     }
 
-    Creature getCurrentCreature() {
+    public Creature getCurrentCreature() {
         return currentCreature;
     }
 

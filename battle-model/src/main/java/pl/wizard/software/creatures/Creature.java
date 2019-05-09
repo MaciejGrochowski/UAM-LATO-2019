@@ -122,8 +122,6 @@ public class Creature {
 
     @Override
     public String toString() {
-        return "Creature{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

@@ -84,7 +84,11 @@ public class BattleEngine {
         nextCreature();
     }
 
-    Point getCreaturePosition(Creature aCreature) {
+    public Optional<Creature> getCreatureByPosition(Point aPosition){
+        return battleMap.getCreatureByPosition(aPosition);
+    }
+
+    Point getPositionByCreature(Creature aCreature) {
         return battleMap.getPositionByCreature(aCreature);
     }
 

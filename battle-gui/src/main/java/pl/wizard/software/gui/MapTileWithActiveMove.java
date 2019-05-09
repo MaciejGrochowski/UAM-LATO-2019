@@ -1,9 +1,10 @@
 package pl.wizard.software.gui;
 
+import javafx.scene.paint.Color;
 import pl.wizard.software.battlefield.BattleEngine;
 import pl.wizard.software.creatures.Creature;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.Optional;
 
 class MapTileWithActiveMove extends MapTile {
@@ -16,9 +17,12 @@ class MapTileWithActiveMove extends MapTile {
         engine = aEngine;
 
         addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, (e) -> {
-            System.out.println("Hello i'm " + "x: " + position.getX() + "y: " + position.getY());
-            engine.move(new Point((int) position.getX(), (int) position.getY()));
+            engine.move(new Point((int) getPosition().getX(), (int) getPosition().getY()));
         });
+    }
+
+    private void setMovePossible() {
+        getBackgroundRectangle().setFill(Color.GRAY);
     }
 
 

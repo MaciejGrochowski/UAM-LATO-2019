@@ -96,7 +96,7 @@ public class Creature {
         return startAmount;
     }
 
-    int getCurrentAmount() {
+    public int getCurrentAmount() {
         return currentAmount;
     }
 

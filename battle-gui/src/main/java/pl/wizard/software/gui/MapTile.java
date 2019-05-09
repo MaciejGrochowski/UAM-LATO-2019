@@ -12,6 +12,7 @@ import java.util.Optional;
 
 class MapTile extends StackPane {
 
+    private final Rectangle rect;
     private Label creatureName;
     Point position;
     Optional<Creature> creature;
@@ -20,7 +21,7 @@ class MapTile extends StackPane {
         position = aPosition;
         creature = aCreature;
 
-        javafx.scene.shape.Rectangle rect = new Rectangle(60, 60);
+        rect = new Rectangle(60, 60);
         rect.setFill(Color.WHITE);
         rect.setStroke(Color.RED);
         getChildren().add(rect);
@@ -31,14 +32,13 @@ class MapTile extends StackPane {
                     getChildren().add(creatureName);
                 }
         );
-
-
-        addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-            System.out.println("Hello i'm " + "x: " + position.getX() + "y: " + position.getY());
-        });
     }
 
     protected void setActive() {
         creatureName.setTextFill(Color.BLUE);
+    }
+
+    protected void setMovePossible() {
+        rect.setFill(Color.GREY);
     }
 }

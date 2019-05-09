@@ -8,6 +8,5 @@ import java.util.Optional;
 class MapTileWithActiveCreature extends MapTile {
     public MapTileWithActiveCreature(Point aPoint, Optional<Creature> aCreature) {
         super(aPoint, aCreature);
-        setActive();
     }
 }

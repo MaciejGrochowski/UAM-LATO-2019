@@ -92,7 +92,7 @@ public class BattleEngine {
         return battleMap.getPositionByCreature(aCreature);
     }
 
-    boolean isMovePossible(Point aPoint) {
+    public boolean isMovePossible(Point aPoint) {
         return battleMap.isMovePossible(currentCreature, aPoint);
     }
 

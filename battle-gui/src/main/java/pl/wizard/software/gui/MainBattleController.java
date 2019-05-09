@@ -52,7 +52,7 @@ public class MainBattleController {
                 if (creature.isPresent() && currenctCreature.equals(creature.get())) {
                     mapTile = new MapTileWithActiveCreature(new Point(x, y), creature);
                 } else if (engine.isMovePossible(new Point(x, y))) {
-                    mapTile = new MapTileWithActiveMove(new Point(x, y), creature);
+                    mapTile = new MapTileWithActiveMove(new Point(x, y), creature, engine);
                 } else {
                     mapTile = new MapTile(new Point(x, y), creature);
                 }

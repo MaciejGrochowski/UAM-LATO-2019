@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class BattleEngine {
 
     public static final String END_OF_TURN = "END_OF_TURN";
+    public static final String CURRENT_CREATURE_MOVED = "CURRENT_CREATURE_MOVED";
     public static final int MAP_MAX_WIDTH = 15;
     public static final int MAP_MAX_HEIGHT = 10;
 
@@ -96,10 +97,11 @@ public class BattleEngine {
         return battleMap.isMovePossible(currentCreature, aPoint);
     }
 
-    void move(Point aPoint) {
+    public void move(Point aPoint) {
         if (!wasMovedInThisTurn) {
             battleMap.move(currentCreature, aPoint);
             wasMovedInThisTurn = true;
+            listenersSupport.firePropertyChange(CURRENT_CREATURE_MOVED, );
         }
     }
 

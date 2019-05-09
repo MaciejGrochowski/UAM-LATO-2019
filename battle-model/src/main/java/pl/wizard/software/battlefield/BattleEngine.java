@@ -78,14 +78,14 @@ public class BattleEngine {
     }
 
     void attack(Creature aTarget) {
-        if(!isAttackPossible(aTarget)){
+        if (!isAttackPossible(aTarget)) {
             throw new IllegalArgumentException("Creature is out of range");
         }
         currentCreature.attack(aTarget);
         nextCreature();
     }
 
-    public Optional<Creature> getCreatureByPosition(Point aPosition){
+    public Optional<Creature> getCreatureByPosition(Point aPosition) {
         return battleMap.getCreatureByPosition(aPosition);
     }
 
@@ -99,13 +99,15 @@ public class BattleEngine {
 
     public void move(Point aPoint) {
         if (!wasMovedInThisTurn) {
+            Point oldPosition = battleMap.getPositionByCreature(currentCreature);
             battleMap.move(currentCreature, aPoint);
+            Point newPosition = battleMap.getPositionByCreature(currentCreature);
             wasMovedInThisTurn = true;
-            listenersSupport.firePropertyChange(CURRENT_CREATURE_MOVED, );
+            listenersSupport.firePropertyChange(CURRENT_CREATURE_MOVED, oldPosition, newPosition);
         }
     }
 
-    boolean isAttackPossible(Creature aCreature){
+    boolean isAttackPossible(Creature aCreature) {
         Point defenderPosition = battleMap.getPositionByCreature(aCreature);
         Point attackerPosition = battleMap.getPositionByCreature(currentCreature);
         return defenderPosition.distance(attackerPosition) == 1;

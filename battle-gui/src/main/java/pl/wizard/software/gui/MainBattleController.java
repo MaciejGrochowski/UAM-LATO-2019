@@ -42,7 +42,13 @@ public class MainBattleController {
 
     @FXML
     private void initialize() {
+        refreshGui();
+        engine.addPropertyChangeListener(BattleEngine.CURRENT_CREATURE_MOVED, (e -> {
+            refreshGui();
+        }));
+    }
 
+    private void refreshGui() {
         for (int x = 0; x <= BattleEngine.MAP_MAX_WIDTH; x++) {
             for (int y = 0; y <= BattleEngine.MAP_MAX_HEIGHT; y++) {
 

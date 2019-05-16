@@ -58,6 +58,9 @@ public class BattleEngine {
 
     private void nextCreature() {
         currentCreature = creaturesQueue.poll();
+        if (!currentCreature.isAlive()){
+            nextCreature();
+        }
         wasMovedInThisTurn = false;
         creatureMovedInThisTurn.add(currentCreature);
 

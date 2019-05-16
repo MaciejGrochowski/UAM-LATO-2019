@@ -17,11 +17,12 @@ public class MapTile extends StackPane {
         getChildren().add(rect);
     }
 
-    Rectangle getRect() {
+    public Rectangle getRect() {
         return rect;
     }
 
     Point getPosition() {
         return position;
     }
+
 }

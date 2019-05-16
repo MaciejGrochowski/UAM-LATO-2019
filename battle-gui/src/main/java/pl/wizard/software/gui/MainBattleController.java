@@ -31,13 +31,13 @@ public class MainBattleController {
 //        p1.addCreature(new Creature("P1_C2", 1, Range.closed(2, 2), 2, 2));
 //        p1.addCreature(new Creature("P1_C3", 1, Range.closed(3, 3), 3, 3));
 //        p1.addCreature(new Creature("P1_C4", 1, Range.closed(4, 4), 4, 4));
-        p1.addCreature(new Creature("P1_C5", 1, Range.closed(5, 5), 5, 15));
+        p1.addCreature(new Creature("P1_C5", 1, Range.closed(5, 5), 5, 7));
         Hero p2 = new Hero();
 //        p2.addCreature(new Creature("P2_C1", 1, Range.closed(1, 1), 1, 1));
 //        p2.addCreature(new Creature("P2_C2", 1, Range.closed(2, 2), 2, 2));
 //        p2.addCreature(new Creature("P2_C3", 1, Range.closed(3, 3), 3, 3));
 //        p2.addCreature(new Creature("P2_C4", 1, Range.closed(4, 4), 4, 4));
-        p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 15));
+        p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 10));
 
         engine = new BattleEngine(p1, p2);
 
@@ -87,6 +87,10 @@ public class MainBattleController {
                     if(engine.getCurrentCreature().equals(creature.get())){
                         tileFactory = new CurrentCreatureMapTileDecoratorFactory(tileFactory);
                     }
+                }
+
+                if(engine.isMovePossible(new Point(x,y))){
+                    tileFactory = new MovePossibleTileDecoratorFactory(tileFactory, engine);
                 }
 
 

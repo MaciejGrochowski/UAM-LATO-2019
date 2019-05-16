@@ -3,18 +3,13 @@ package pl.wizard.software.gui;
 import com.google.common.collect.Range;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import pl.wizard.software.battlefield.BattleEngine;
 import pl.wizard.software.creatures.Creature;
+import pl.wizard.software.gui.tiles.DefaultMapTileFactory;
+import pl.wizard.software.gui.tiles.MapTile;
 import pl.wizard.software.player.Hero;
-
-import java.awt.Point;
-import java.util.Optional;
 
 public class MainBattleController {
 
@@ -64,20 +59,23 @@ public class MainBattleController {
         for (int x = 0; x <= BattleEngine.MAP_MAX_WIDTH; x++) {
             for (int y = 0; y <= BattleEngine.MAP_MAX_HEIGHT; y++) {
 
-                Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
-                Creature currenctCreature = engine.getCurrentCreature();
-                MapTile mapTile;
-                if (creature.isPresent() && currenctCreature.equals(creature.get())) {
-                    mapTile = new MapTileWithActiveCreature(new Point(x, y), creature);
-                }
-                else if(creature.isPresent() && engine.isAttackPossible(creature.get())){
-                    mapTile = new MapTileWithAttackPossible(new Point(x,y), creature, engine);
-                }
-                else if (engine.isMovePossible(new Point(x, y))) {
-                    mapTile = new MapTileWithActiveMove(new Point(x, y), creature, engine);
-                } else {
-                    mapTile = new MapTile(new Point(x, y), creature);
-                }
+//                Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
+//                Creature currenctCreature = engine.getCurrentCreature();
+//                MapTile mapTile;
+//                if (creature.isPresent() && currenctCreature.equals(creature.get())) {
+//                    mapTile = new MapTileWithActiveCreature(new Point(x, y), creature);
+//                }
+//                else if(creature.isPresent() && engine.isAttackPossible(creature.get())){
+//                    mapTile = new MapTileWithAttackPossible(new Point(x,y), creature, engine);
+//                }
+//                else if (engine.isMovePossible(new Point(x, y))) {
+//                    mapTile = new MapTileWithActiveMove(new Point(x, y), creature, engine);
+//                } else {
+//                    mapTile = new MapTile(new Point(x, y), creature);
+//                }
+
+                DefaultMapTileFactory tileFactory = new DefaultMapTileFactory();
+                MapTile mapTile = tileFactory.preapreTile(x, y);
                 gridMap.add(mapTile, x, y);
             }
         }

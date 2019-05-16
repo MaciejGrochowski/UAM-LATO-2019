@@ -7,9 +7,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import pl.wizard.software.battlefield.BattleEngine;
 import pl.wizard.software.creatures.Creature;
+import pl.wizard.software.gui.tiles.CreatureMapTileDecoratorFactory;
 import pl.wizard.software.gui.tiles.DefaultMapTileFactory;
 import pl.wizard.software.gui.tiles.MapTile;
 import pl.wizard.software.player.Hero;
+
+import java.awt.*;
+import java.util.Optional;
 
 public class MainBattleController {
 
@@ -59,7 +63,7 @@ public class MainBattleController {
         for (int x = 0; x <= BattleEngine.MAP_MAX_WIDTH; x++) {
             for (int y = 0; y <= BattleEngine.MAP_MAX_HEIGHT; y++) {
 
-//                Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
+
 //                Creature currenctCreature = engine.getCurrentCreature();
 //                MapTile mapTile;
 //                if (creature.isPresent() && currenctCreature.equals(creature.get())) {
@@ -75,6 +79,12 @@ public class MainBattleController {
 //                }
 
                 DefaultMapTileFactory tileFactory = new DefaultMapTileFactory();
+
+                Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
+                if(creature.isPresent()){
+                    tileFactory = new CreatureMapTileDecoratorFactory(tileFactory, creature.get());
+                }
+
                 MapTile mapTile = tileFactory.preapreTile(x, y);
                 gridMap.add(mapTile, x, y);
             }

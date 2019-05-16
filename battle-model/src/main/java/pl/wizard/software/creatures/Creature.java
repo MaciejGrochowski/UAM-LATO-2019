@@ -100,7 +100,7 @@ public class Creature {
         return currentAmount;
     }
 
-    boolean isAlive() {
+    public boolean isAlive() {
         return currentAmount > 0;
     }
 

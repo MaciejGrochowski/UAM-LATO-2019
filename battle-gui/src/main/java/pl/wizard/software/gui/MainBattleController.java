@@ -73,6 +73,10 @@ public class MainBattleController {
                     if (engine.isAttackPossible(creature.get())) {
                         tileFactory = new AttackPossibleMapTileDecoratorFactory(tileFactory, engine, creature.get());
                     }
+
+                    if(!creature.get().isAlive()){
+                        tileFactory = new DiedCreatureDecoratorFactory(tileFactory);
+                    }
                 }
 
                 if (engine.isMovePossible(new Point(x, y))) {

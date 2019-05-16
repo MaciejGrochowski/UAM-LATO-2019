@@ -22,8 +22,8 @@ public class CreatureMapTileDecoratorFactory extends DefaultMapTileFactory {
     }
 
     @Override
-    public MapTile preapreTile(int aX, int aY) {
-        MapTile mapTile = decorated.preapreTile(aX, aY);
+    public MapTile prepareTile(int aX, int aY) {
+        MapTile mapTile = decorated.prepareTile(aX, aY);
 
         BorderPane creaturePane = new BorderPane();
         creatureNameLabel.setFont(Font.font("Arial", 14));

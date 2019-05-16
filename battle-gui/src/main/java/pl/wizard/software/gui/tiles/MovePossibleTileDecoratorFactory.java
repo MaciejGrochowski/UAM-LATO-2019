@@ -1,13 +1,11 @@
-package pl.wizard.software.gui;
+package pl.wizard.software.gui.tiles;
 
 import javafx.scene.paint.Color;
 import pl.wizard.software.battlefield.BattleEngine;
-import pl.wizard.software.gui.tiles.DefaultMapTileFactory;
-import pl.wizard.software.gui.tiles.MapTile;
 
 import java.awt.*;
 
-class MovePossibleTileDecoratorFactory extends DefaultMapTileFactory {
+public class MovePossibleTileDecoratorFactory extends DefaultMapTileFactory {
     private final DefaultMapTileFactory decorated;
     private final BattleEngine engine;
 
@@ -18,8 +16,8 @@ class MovePossibleTileDecoratorFactory extends DefaultMapTileFactory {
     }
 
     @Override
-    public MapTile preapreTile(int aX, int aY) {
-        MapTile mapTile = decorated.preapreTile(aX, aY);
+    public MapTile prepareTile(int aX, int aY) {
+        MapTile mapTile = decorated.prepareTile(aX, aY);
 
         mapTile.getRect().setFill(Color.GREY);
         mapTile.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, (e) -> {

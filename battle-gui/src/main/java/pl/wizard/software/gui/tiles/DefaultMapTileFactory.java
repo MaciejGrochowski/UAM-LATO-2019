@@ -6,7 +6,7 @@ public class DefaultMapTileFactory {
 
     private MapTile mapTile;
 
-    public MapTile preapreTile(int aX, int aY){
+    public MapTile prepareTile(int aX, int aY){
         mapTile = new MapTile(aX, aY);
         mapTile.getRect().setFill(Color.WHITE);
         mapTile.getRect().setStroke(Color.RED);

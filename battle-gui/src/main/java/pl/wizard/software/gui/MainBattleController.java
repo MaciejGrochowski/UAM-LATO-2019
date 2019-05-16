@@ -7,9 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import pl.wizard.software.battlefield.BattleEngine;
 import pl.wizard.software.creatures.Creature;
-import pl.wizard.software.gui.tiles.CreatureMapTileDecoratorFactory;
-import pl.wizard.software.gui.tiles.CurrentCreatureMapTileDecoratorFactory;
-import pl.wizard.software.gui.tiles.DefaultMapTileFactory;
+import pl.wizard.software.gui.tiles.*;
 import pl.wizard.software.gui.tiles.MapTile;
 import pl.wizard.software.player.Hero;
 
@@ -46,7 +44,7 @@ public class MainBattleController {
     @FXML
     private void initialize() {
         refreshGui();
-        passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
+        passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             engine.pass();
         });
         engine.addPropertyChangeListener(BattleEngine.CURRENT_CREATURE_MOVED, (e -> {
@@ -66,19 +64,22 @@ public class MainBattleController {
                 DefaultMapTileFactory tileFactory = new DefaultMapTileFactory();
 
                 Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));
-                if(creature.isPresent()){
+                if (creature.isPresent()) {
                     tileFactory = new CreatureMapTileDecoratorFactory(tileFactory, creature.get());
-                    if(engine.getCurrentCreature().equals(creature.get())){
+                    if (engine.getCurrentCreature().equals(creature.get())) {
                         tileFactory = new CurrentCreatureMapTileDecoratorFactory(tileFactory);
+                    }
+
+                    if (engine.isAttackPossible(creature.get())) {
+                        tileFactory = new AttackPossibleMapTileDecoratorFactory(tileFactory, engine, creature.get());
                     }
                 }
 
-                if(engine.isMovePossible(new Point(x,y))){
+                if (engine.isMovePossible(new Point(x, y))) {
                     tileFactory = new MovePossibleTileDecoratorFactory(tileFactory, engine);
                 }
 
-
-                MapTile mapTile = tileFactory.preapreTile(x, y);
+                MapTile mapTile = tileFactory.prepareTile(x, y);
                 gridMap.add(mapTile, x, y);
             }
         }

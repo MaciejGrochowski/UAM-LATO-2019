@@ -96,11 +96,11 @@ public class Creature {
         return startAmount;
     }
 
-    int getCurrentAmount() {
+    public int getCurrentAmount() {
         return currentAmount;
     }
 
-    boolean isAlive() {
+    public boolean isAlive() {
         return currentAmount > 0;
     }
 
@@ -122,8 +122,6 @@ public class Creature {
 
     @Override
     public String toString() {
-        return "Creature{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

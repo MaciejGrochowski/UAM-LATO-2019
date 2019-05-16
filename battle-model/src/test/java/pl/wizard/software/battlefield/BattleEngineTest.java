@@ -97,8 +97,8 @@ class BattleEngineTest {
     void creaturesShouldBePutInFirstAndLastRow() {
         BattleEngine engine = new BattleEngine(heroWithImp, heroWithCentaur);
 
-        Point impPosition = engine.getCreaturePosition(imp);
-        Point centaurPosition = engine.getCreaturePosition(centaur);
+        Point impPosition = engine.getPositionByCreature(imp);
+        Point centaurPosition = engine.getPositionByCreature(centaur);
 
         assertEquals(new Point(0, 1), impPosition);
         assertEquals(new Point(15, 1), centaurPosition);
@@ -130,16 +130,16 @@ class BattleEngineTest {
         hero2.addCreature(h2c5);
         BattleEngine engine = new BattleEngine(hero1, hero2);
 
-        assertEquals(new Point(0, 1), engine.getCreaturePosition(c1));
-        assertEquals(new Point(0, 3), engine.getCreaturePosition(c2));
-        assertEquals(new Point(0, 5), engine.getCreaturePosition(c3));
-        assertEquals(new Point(0, 7), engine.getCreaturePosition(c4));
-        assertEquals(new Point(0, 9), engine.getCreaturePosition(c5));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 1), engine.getCreaturePosition(h2c1));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 3), engine.getCreaturePosition(h2c2));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 5), engine.getCreaturePosition(h2c3));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 7), engine.getCreaturePosition(h2c4));
-        assertEquals(new Point(BattleMap.MAX_WIDTH, 9), engine.getCreaturePosition(h2c5));
+        assertEquals(new Point(0, 1), engine.getPositionByCreature(c1));
+        assertEquals(new Point(0, 3), engine.getPositionByCreature(c2));
+        assertEquals(new Point(0, 5), engine.getPositionByCreature(c3));
+        assertEquals(new Point(0, 7), engine.getPositionByCreature(c4));
+        assertEquals(new Point(0, 9), engine.getPositionByCreature(c5));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 1), engine.getPositionByCreature(h2c1));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 3), engine.getPositionByCreature(h2c2));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 5), engine.getPositionByCreature(h2c3));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 7), engine.getPositionByCreature(h2c4));
+        assertEquals(new Point(BattleEngine.MAP_MAX_WIDTH, 9), engine.getPositionByCreature(h2c5));
     }
 
     @Test
@@ -162,11 +162,11 @@ class BattleEngineTest {
         engine.move(new Point(14, 3));
         engine.move(new Point(13, 5));
 
-        assertEquals(new Point(14, 3), engine.getCreaturePosition(centaur));
+        assertEquals(new Point(14, 3), engine.getPositionByCreature(centaur));
         engine.pass();
 
         engine.move(new Point(1, 1));
-        assertEquals(new Point(1, 1), engine.getCreaturePosition(imp));
+        assertEquals(new Point(1, 1), engine.getPositionByCreature(imp));
     }
 
     @Test

@@ -5,6 +5,7 @@ import pl.wizard.software.creatures.Creature;
 import pl.wizard.software.player.Hero;
 
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
@@ -14,6 +15,12 @@ import java.util.stream.Collectors;
 public class BattleEngine {
 
     public static final String END_OF_TURN = "END_OF_TURN";
+    public static final String CURRENT_CREATURE_MOVED = "CURRENT_CREATURE_MOVED";
+    public static final int MAP_MAX_WIDTH = 15;
+    public static final int MAP_MAX_HEIGHT = 10;
+    public static final String NEXT_CREATURE = "NEXT_CREATURE";
+    public static final String CREATURE_ATACKED = "CREATURE_ATTACKED";
+
     private final Pair<Hero, Hero> heroes;
     private final Queue<Creature> creaturesQueue;
     private final List<Creature> creatureMovedInThisTurn;
@@ -51,6 +58,9 @@ public class BattleEngine {
 
     private void nextCreature() {
         currentCreature = creaturesQueue.poll();
+        if (!currentCreature.isAlive()){
+            nextCreature();
+        }
         wasMovedInThisTurn = false;
         creatureMovedInThisTurn.add(currentCreature);
 
@@ -65,40 +75,50 @@ public class BattleEngine {
         listenersSupport.firePropertyChange(END_OF_TURN, null, null);
     }
 
-    Creature getCurrentCreature() {
+    public Creature getCurrentCreature() {
         return currentCreature;
     }
 
-    void pass() {
+    public void pass() {
+        Creature oldCreature = currentCreature;
         nextCreature();
+        listenersSupport.firePropertyChange(NEXT_CREATURE, oldCreature, currentCreature);
     }
 
-    void attack(Creature aTarget) {
-        if(!isAttackPossible(aTarget)){
+    public void attack(Creature aTarget) {
+        if (!isAttackPossible(aTarget)) {
             throw new IllegalArgumentException("Creature is out of range");
         }
         currentCreature.attack(aTarget);
         nextCreature();
+        listenersSupport.firePropertyChange(CREATURE_ATACKED, null, null);
     }
 
-    Point getCreaturePosition(Creature aCreature) {
-        return battleMap.getCreaturePosition(aCreature);
+    public Optional<Creature> getCreatureByPosition(Point aPosition) {
+        return battleMap.getCreatureByPosition(aPosition);
     }
 
-    boolean isMovePossible(Point aPoint) {
+    Point getPositionByCreature(Creature aCreature) {
+        return battleMap.getPositionByCreature(aCreature);
+    }
+
+    public boolean isMovePossible(Point aPoint) {
         return battleMap.isMovePossible(currentCreature, aPoint);
     }
 
-    void move(Point aPoint) {
+    public void move(Point aPoint) {
         if (!wasMovedInThisTurn) {
+            Point oldPosition = battleMap.getPositionByCreature(currentCreature);
             battleMap.move(currentCreature, aPoint);
+            Point newPosition = battleMap.getPositionByCreature(currentCreature);
             wasMovedInThisTurn = true;
+            listenersSupport.firePropertyChange(CURRENT_CREATURE_MOVED, oldPosition, newPosition);
         }
     }
 
-    boolean isAttackPossible(Creature aCreature){
-        Point defenderPosition = battleMap.getCreaturePosition(aCreature);
-        Point attackerPosition = battleMap.getCreaturePosition(currentCreature);
-        return defenderPosition.distance(attackerPosition) == 1;
+    public boolean isAttackPossible(Creature aCreature) {
+        Point defenderPosition = battleMap.getPositionByCreature(aCreature);
+        Point attackerPosition = battleMap.getPositionByCreature(currentCreature);
+        return defenderPosition.distance(attackerPosition) == 1.0;
     }
 }

@@ -30,7 +30,7 @@ class MovementEngineTest {
 
         map.move(creature1, new Point(1, 2));
 
-        assertEquals(new Point(1, 2), map.getCreaturePosition(creature1));
+        assertEquals(new Point(1, 2), map.getPositionByCreature(creature1));
     }
 
     @Test
@@ -70,22 +70,22 @@ class MovementEngineTest {
     @Test
     void shouldThrowExceptionWhileTryToPutCreatureOutisdeTheMap() {
         assertThrows(IllegalArgumentException.class,
-                () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT)));
+                () -> map.put(creature1, new Point(BattleEngine.MAP_MAX_WIDTH + 1, BattleEngine.MAP_MAX_HEIGHT)));
         assertThrows(IllegalArgumentException.class,
-                () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT + 1)));
+                () -> map.put(creature1, new Point(BattleEngine.MAP_MAX_WIDTH + 1, BattleEngine.MAP_MAX_HEIGHT + 1)));
         assertThrows(IllegalArgumentException.class,
-                () -> map.put(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT + 1)));
+                () -> map.put(creature1, new Point(BattleEngine.MAP_MAX_WIDTH, BattleEngine.MAP_MAX_HEIGHT + 1)));
     }
 
     @Test
     void shouldThrowExceptionWhileTryToMoveCreatureOutsideMap(){
-        map.put(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT));
+        map.put(creature1, new Point(BattleEngine.MAP_MAX_WIDTH, BattleEngine.MAP_MAX_HEIGHT));
 
         assertThrows(IllegalArgumentException.class,
-                () -> map.move(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT)));
+                () -> map.move(creature1, new Point(BattleEngine.MAP_MAX_WIDTH + 1, BattleEngine.MAP_MAX_HEIGHT)));
         assertThrows(IllegalArgumentException.class,
-                () -> map.move(creature1, new Point(BattleMap.MAX_WIDTH + 1, BattleMap.MAX_HEIGHT + 1)));
+                () -> map.move(creature1, new Point(BattleEngine.MAP_MAX_WIDTH + 1, BattleEngine.MAP_MAX_HEIGHT + 1)));
         assertThrows(IllegalArgumentException.class,
-                () -> map.move(creature1, new Point(BattleMap.MAX_WIDTH, BattleMap.MAX_HEIGHT + 1)));
+                () -> map.move(creature1, new Point(BattleEngine.MAP_MAX_WIDTH, BattleEngine.MAP_MAX_HEIGHT + 1)));
     }
 }

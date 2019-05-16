@@ -43,6 +43,10 @@ class MapTile extends StackPane {
         );
     }
 
+    protected Optional<Creature> getCreature() {
+        return creature;
+    }
+
     protected Rectangle getBackgroundRectangle() {
         return rect;
     }

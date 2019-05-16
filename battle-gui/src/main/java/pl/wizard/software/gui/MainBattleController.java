@@ -2,6 +2,7 @@ package pl.wizard.software.gui;
 
 import com.google.common.collect.Range;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -21,20 +22,22 @@ public class MainBattleController {
 
     @FXML
     GridPane gridMap;
+    @FXML
+    Button passButton;
 
     public MainBattleController() {
         Hero p1 = new Hero();
-        p1.addCreature(new Creature("P1_C1", 1, Range.closed(1, 1), 1, 1));
-        p1.addCreature(new Creature("P1_C2", 1, Range.closed(2, 2), 2, 2));
-        p1.addCreature(new Creature("P1_C3", 1, Range.closed(3, 3), 3, 3));
-        p1.addCreature(new Creature("P1_C4", 1, Range.closed(4, 4), 4, 4));
-        p1.addCreature(new Creature("P1_C5", 1, Range.closed(5, 5), 5, 5));
+//        p1.addCreature(new Creature("P1_C1", 1, Range.closed(1, 1), 1, 1));
+//        p1.addCreature(new Creature("P1_C2", 1, Range.closed(2, 2), 2, 2));
+//        p1.addCreature(new Creature("P1_C3", 1, Range.closed(3, 3), 3, 3));
+//        p1.addCreature(new Creature("P1_C4", 1, Range.closed(4, 4), 4, 4));
+        p1.addCreature(new Creature("P1_C5", 1, Range.closed(5, 5), 5, 15));
         Hero p2 = new Hero();
-        p2.addCreature(new Creature("P2_C1", 1, Range.closed(1, 1), 1, 1));
-        p2.addCreature(new Creature("P2_C2", 1, Range.closed(2, 2), 2, 2));
-        p2.addCreature(new Creature("P2_C3", 1, Range.closed(3, 3), 3, 3));
-        p2.addCreature(new Creature("P2_C4", 1, Range.closed(4, 4), 4, 4));
-        p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 5));
+//        p2.addCreature(new Creature("P2_C1", 1, Range.closed(1, 1), 1, 1));
+//        p2.addCreature(new Creature("P2_C2", 1, Range.closed(2, 2), 2, 2));
+//        p2.addCreature(new Creature("P2_C3", 1, Range.closed(3, 3), 3, 3));
+//        p2.addCreature(new Creature("P2_C4", 1, Range.closed(4, 4), 4, 4));
+        p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 15));
 
         engine = new BattleEngine(p1, p2);
 
@@ -43,7 +46,16 @@ public class MainBattleController {
     @FXML
     private void initialize() {
         refreshGui();
+        passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
+            engine.pass();
+        });
         engine.addPropertyChangeListener(BattleEngine.CURRENT_CREATURE_MOVED, (e -> {
+            refreshGui();
+        }));
+        engine.addPropertyChangeListener(BattleEngine.NEXT_CREATURE, (e -> {
+            refreshGui();
+        }));
+        engine.addPropertyChangeListener(BattleEngine.CREATURE_ATACKED, (e -> {
             refreshGui();
         }));
     }
@@ -57,7 +69,11 @@ public class MainBattleController {
                 MapTile mapTile;
                 if (creature.isPresent() && currenctCreature.equals(creature.get())) {
                     mapTile = new MapTileWithActiveCreature(new Point(x, y), creature);
-                } else if (engine.isMovePossible(new Point(x, y))) {
+                }
+                else if(creature.isPresent() && engine.isAttackPossible(creature.get())){
+                    mapTile = new MapTileWithAttackPossible(new Point(x,y), creature, engine);
+                }
+                else if (engine.isMovePossible(new Point(x, y))) {
                     mapTile = new MapTileWithActiveMove(new Point(x, y), creature, engine);
                 } else {
                     mapTile = new MapTile(new Point(x, y), creature);

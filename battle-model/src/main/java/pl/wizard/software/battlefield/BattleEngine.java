@@ -5,6 +5,7 @@ import pl.wizard.software.creatures.Creature;
 import pl.wizard.software.player.Hero;
 
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
@@ -17,6 +18,8 @@ public class BattleEngine {
     public static final String CURRENT_CREATURE_MOVED = "CURRENT_CREATURE_MOVED";
     public static final int MAP_MAX_WIDTH = 15;
     public static final int MAP_MAX_HEIGHT = 10;
+    public static final String NEXT_CREATURE = "NEXT_CREATURE";
+    public static final String CREATURE_ATACKED = "CREATURE_ATTACKED";
 
     private final Pair<Hero, Hero> heroes;
     private final Queue<Creature> creaturesQueue;
@@ -73,16 +76,19 @@ public class BattleEngine {
         return currentCreature;
     }
 
-    void pass() {
+    public void pass() {
+        Creature oldCreature = currentCreature;
         nextCreature();
+        listenersSupport.firePropertyChange(NEXT_CREATURE, oldCreature, currentCreature);
     }
 
-    void attack(Creature aTarget) {
+    public void attack(Creature aTarget) {
         if (!isAttackPossible(aTarget)) {
             throw new IllegalArgumentException("Creature is out of range");
         }
         currentCreature.attack(aTarget);
         nextCreature();
+        listenersSupport.firePropertyChange(CREATURE_ATACKED, null, null);
     }
 
     public Optional<Creature> getCreatureByPosition(Point aPosition) {
@@ -107,9 +113,9 @@ public class BattleEngine {
         }
     }
 
-    boolean isAttackPossible(Creature aCreature) {
+    public boolean isAttackPossible(Creature aCreature) {
         Point defenderPosition = battleMap.getPositionByCreature(aCreature);
         Point attackerPosition = battleMap.getPositionByCreature(currentCreature);
-        return defenderPosition.distance(attackerPosition) == 1;
+        return defenderPosition.distance(attackerPosition) == 1.0;
     }
 }

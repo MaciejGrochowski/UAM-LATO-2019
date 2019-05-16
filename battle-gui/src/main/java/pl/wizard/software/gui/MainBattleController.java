@@ -63,22 +63,6 @@ public class MainBattleController {
     private void refreshGui() {
         for (int x = 0; x <= BattleEngine.MAP_MAX_WIDTH; x++) {
             for (int y = 0; y <= BattleEngine.MAP_MAX_HEIGHT; y++) {
-
-
-//                Creature currenctCreature = engine.getCurrentCreature();
-//                MapTile mapTile;
-//                if (creature.isPresent() && currenctCreature.equals(creature.get())) {
-//                    mapTile = new MapTileWithActiveCreature(new Point(x, y), creature);
-//                }
-//                else if(creature.isPresent() && engine.isAttackPossible(creature.get())){
-//                    mapTile = new MapTileWithAttackPossible(new Point(x,y), creature, engine);
-//                }
-//                else if (engine.isMovePossible(new Point(x, y))) {
-//                    mapTile = new MapTileWithActiveMove(new Point(x, y), creature, engine);
-//                } else {
-//                    mapTile = new MapTile(new Point(x, y), creature);
-//                }
-
                 DefaultMapTileFactory tileFactory = new DefaultMapTileFactory();
 
                 Optional<Creature> creature = engine.getCreatureByPosition(new Point(x, y));

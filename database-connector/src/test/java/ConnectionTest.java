@@ -10,16 +10,16 @@ import javax.persistence.Persistence;
 class ConnectionTest {
 
     @Test
-    void connectionTest(){
+    void persistTest() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
         EntityManager em = emf.createEntityManager();
 
-        CreatureEntity creature1 = PrepareCreature("Level1");
-        CreatureEntity creature2 = PrepareCreature("Level2");
-        CreatureEntity creature3 = PrepareCreature("Level3");
-        CreatureEntity creature4 = PrepareCreature("Level4");
-        CreatureEntity creature5 = PrepareCreature("Level5");
-        CreatureEntity creature6 = PrepareCreature("Level_1");
+        CreatureEntity creature1 = PrepareCreature("Level1", 1);
+        CreatureEntity creature2 = PrepareCreature("Level2", 2);
+        CreatureEntity creature3 = PrepareCreature("Level3", 3);
+        CreatureEntity creature4 = PrepareCreature("Level4", 4);
+        CreatureEntity creature5 = PrepareCreature("Level5", 5);
+        CreatureEntity creature6 = PrepareCreature("Level_1", 1);
 
         FractionEntity f1 = new FractionEntity("F1");
         FractionEntity f2 = new FractionEntity("F2");
@@ -42,16 +42,16 @@ class ConnectionTest {
         emf.close();
     }
 
-    private CreatureEntity PrepareCreature(String aName) {
+    private CreatureEntity PrepareCreature(String aName, int aLevel) {
         CreatureEntity creature = new CreatureEntity();
         creature.setName(aName);
-        creature.setMaxHp(1);
-        creature.setDefence(1);
+        creature.setMaxHp(aLevel);
+        creature.setDefence(aLevel);
         creature.setDealDamageStrategy(CreatureEntity.DamageStrategy.HIGHEST_DAMAGE);
-        creature.setGoldCost(1);
-        creature.setMinAttack(1);
+        creature.setGoldCost(aLevel);
+        creature.setMinAttack(aLevel);
         creature.setMaxAttack(10);
-        creature.setSpeed(1);
+        creature.setSpeed(aLevel);
         return creature;
     }
 }

@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -27,6 +24,9 @@ public class CreatureEntity {
     private int speed;
     private int level;
     private int goldCost;
+
+    @Version
+    private int version;
 
     public long getId() {
         return id;

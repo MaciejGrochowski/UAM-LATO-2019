@@ -2,10 +2,8 @@ import entities.CreatureEntity;
 import entities.FractionEntity;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 class ConnectionTest {
 
@@ -40,6 +38,65 @@ class ConnectionTest {
 
         em.close();
         emf.close();
+    }
+
+    @Test
+    void findTest() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        CreatureEntity fromDb = em.find(CreatureEntity.class, 2L);
+        System.out.println(fromDb);
+    }
+
+    @Test
+    void findTest2() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        FractionEntity fromDb = em.find(FractionEntity.class, 1L);
+        System.out.println(fromDb);
+    }
+
+    @Test
+    void selectAll() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<CreatureEntity> query = em.createQuery("SELECT c FROM CreatureEntity c",
+                CreatureEntity.class);
+        List<CreatureEntity> fromDb = query.getResultList();
+        System.out.println(fromDb);
+    }
+
+    @Test
+    void findTestByJpql() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<CreatureEntity> query = em.createQuery("SELECT c FROM CreatureEntity c where c.id=:id ",
+                CreatureEntity.class);
+        query.setParameter("id", 2l);
+        CreatureEntity fromDb = query.getSingleResult();
+        System.out.println(fromDb);
+    }
+
+    @Test
+    void findTestByJpqlWithFetching() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<CreatureEntity> query = em.createQuery("SELECT c FROM CreatureEntity c join fetch c.fractions where c.id=:id ",
+                CreatureEntity.class);
+        query.setParameter("id", 2l);
+        CreatureEntity fromDb = query.getSingleResult();
+        System.out.println(fromDb);
+    }
+
+    @Test
+    void findTestByJpqlWithShortData() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<CreatureEntity> query = em.createQuery("SELECT new CreatureEntity(c.name, c.level) FROM CreatureEntity c where c.id=:id ",
+                CreatureEntity.class);
+        query.setParameter("id", 2l);
+        CreatureEntity fromDb = query.getSingleResult();
+        System.out.println(fromDb);
     }
 
     private CreatureEntity PrepareCreature(String aName, int aLevel) {

@@ -28,6 +28,15 @@ public class CreatureEntity {
     @Version
     private int version;
 
+    public CreatureEntity(){
+
+    }
+
+    public CreatureEntity(String aName, int aLevel){
+        name = aName;
+        level = aLevel;
+    }
+
     public long getId() {
         return id;
     }
@@ -111,4 +120,5 @@ public class CreatureEntity {
     public void setGoldCost(int aGoldCost) {
         goldCost = aGoldCost;
     }
+
 }

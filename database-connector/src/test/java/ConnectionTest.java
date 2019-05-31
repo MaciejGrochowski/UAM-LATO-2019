@@ -8,6 +8,14 @@ import java.util.List;
 class ConnectionTest {
 
     @Test
+    void testConnection(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
+        EntityManager em = emf.createEntityManager();
+        em.close();
+        emf.close();
+    }
+
+    @Test
     void persistTest() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("heroes-demo");
         EntityManager em = emf.createEntityManager();

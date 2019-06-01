@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Hero {
 
+
+
     private final List<Creature> creatures;
 
     private int attack;
@@ -16,14 +18,18 @@ public class Hero {
     private int charisma;
     public int mana;
     public double criticalchance;
-
+    public SpecialAbility spec;
 
 
     public Hero(){
         this(0,0,0,0);
     }
 
-    Hero (int aAttack, int aDefence, int aIntelligence, int aCharisma){
+    public Hero(int aAttack, int aDefence, int aInteligence, int aCharisma) {
+        this(aAttack, aDefence, aInteligence, aCharisma, "no");
+    }
+
+    public Hero(int aAttack, int aDefence, int aIntelligence, int aCharisma, String aSpecialAbility){
         attack = aAttack;
         defence = aDefence;
         intelligence = aIntelligence;
@@ -31,6 +37,7 @@ public class Hero {
         creatures = new ArrayList<>();
         mana = 10*intelligence;
         criticalchance = 0.05 * charisma;
+        spec = new SpecialAbility(aSpecialAbility);
     }
 
     public void addCreature(Creature aCreature) {
@@ -38,6 +45,7 @@ public class Hero {
             throw new IllegalStateException("Hero doesn't have empty slot for next creature");
         }
         creatures.add(aCreature);
+
     }
 
     public List<Creature> getCreatures() {
@@ -74,5 +82,13 @@ public class Hero {
 
     public void setCharisma(int charisma) {
         this.charisma = charisma;
+    }
+
+    public SpecialAbility getSpec() {
+        return spec;
+    }
+
+    public void setSpec(SpecialAbility spec) {
+        this.spec = spec;
     }
 }

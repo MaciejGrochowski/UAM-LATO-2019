@@ -11,6 +11,7 @@ public class Creature {
 
     private final String name;
     private final int maxHp;
+    private final int defaultSpeed;
     private int currentHp;
     private final Range<Integer> attack;
     private final int defence;
@@ -31,8 +32,14 @@ public class Creature {
         startAmount = aStartAmount;
         currentAmount = startAmount;
         dealDamageStrategy = aDamageStrategy;
-        speed = aSpeed;
-        hero = Optional.ofNullable(aHero);
+        defaultSpeed = aSpeed;
+        speed = defaultSpeed;
+        setHero(aHero);
+
+    }
+
+    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, int aSpeed, Hero aHero, int aStartAmount){
+        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy(), aSpeed, aHero, aStartAmount);
     }
 
     Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
@@ -76,8 +83,10 @@ public class Creature {
     public void subscribeMe(BattleEngine aEngine) {
         aEngine.addPropertyChangeListener(BattleEngine.END_OF_TURN, (e -> {
             counterAttacked = false;
+            speed = defaultSpeed;
         }));
     }
+
 
 //    protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
 //        int damageToDeal = aAtacker.attack.lowerEndpoint() - aDefender.defence;
@@ -145,6 +154,17 @@ public class Creature {
     }
 
     public void setHero(Hero aHero) {
-        this.hero = Optional.of(aHero);
+        hero = Optional.ofNullable(aHero);
+        hero.ifPresent(e -> {
+            e.addCreature(this);
+            e.getSpec().addPropertyChangeListener(e.getSpec().SPEED, (f -> {
+                speed += 1;
+
+            }));
+            e.getSpec().addPropertyChangeListener(e.getSpec().MORE_COUNTER_ATTACKS, (f -> {
+                counterAttacked = false;
+            }));
+        });
     }
+
 }

@@ -57,18 +57,29 @@ public class BattleEngine {
     }
 
     private void nextCreature() {
+
+        if (creaturesQueue.isEmpty()) {
+            endOfTrun();
+            for (Creature creature: creatureMovedInThisTurn) {
+                if(creature.isAlive()){
+                    creaturesQueue.add(creature);
+                }
+            }
+            creatureMovedInThisTurn.clear();
+        }
+
+
         currentCreature = creaturesQueue.poll();
         if (!currentCreature.isAlive()){
             nextCreature();
+            return;
         }
         wasMovedInThisTurn = false;
         creatureMovedInThisTurn.add(currentCreature);
 
-        if (creaturesQueue.isEmpty()) {
-            endOfTrun();
-            creaturesQueue.addAll(creatureMovedInThisTurn);
-            creatureMovedInThisTurn.clear();
-        }
+
+        currentCreature.getHero().ifPresent(c -> c.getSpec().UseSpecialAbility());
+
     }
 
     void endOfTrun() {

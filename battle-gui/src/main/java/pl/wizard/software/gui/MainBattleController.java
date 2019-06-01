@@ -14,6 +14,8 @@ import pl.wizard.software.player.Hero;
 import java.awt.*;
 import java.util.Optional;
 
+import static java.lang.System.exit;
+
 public class MainBattleController {
 
     private final BattleEngine engine;
@@ -24,18 +26,25 @@ public class MainBattleController {
     Button passButton;
 
     public MainBattleController() {
-        Hero p1 = new Hero();
+        Hero p1 = new Hero(0,0,0,0,"SPEED");
+        Hero p2 = new Hero(0,0,0,0, "MORE_COUNTER_ATTACKS");
+
+
+        Creature c1 = new Creature("P1_C1", 2, Range.closed(1, 1), 1, 20, p1, 1);
+        Creature c2 = new Creature("P2_C1", 1000, Range.closed(1, 1), 1, 19, p2, 1);
+        Creature c3 = new Creature("P1_C2", 2, Range.closed(1, 1), 1, 18, p1, 1);
+        //Creature c4 = new Creature("P2_C2", 2, Range.closed(1, 1), 1, 18, p2, 1);
 //        p1.addCreature(new Creature("P1_C1", 1, Range.closed(1, 1), 1, 1));
 //        p1.addCreature(new Creature("P1_C2", 1, Range.closed(2, 2), 2, 2));
 //        p1.addCreature(new Creature("P1_C3", 1, Range.closed(3, 3), 3, 3));
 //        p1.addCreature(new Creature("P1_C4", 1, Range.closed(4, 4), 4, 4));
-        p1.addCreature(new Creature("P1_C5", 1, Range.closed(5, 5), 5, 7));
-        Hero p2 = new Hero();
+        //p1.addCreature(new Creature("P1_C5", 1, Range.closed(5, 5), 5, 7));
+
 //        p2.addCreature(new Creature("P2_C1", 1, Range.closed(1, 1), 1, 1));
 //        p2.addCreature(new Creature("P2_C2", 1, Range.closed(2, 2), 2, 2));
 //        p2.addCreature(new Creature("P2_C3", 1, Range.closed(3, 3), 3, 3));
 //        p2.addCreature(new Creature("P2_C4", 1, Range.closed(4, 4), 4, 4));
-        p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 10));
+        //p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 10));
 
         engine = new BattleEngine(p1, p2);
 
@@ -57,6 +66,7 @@ public class MainBattleController {
             refreshGui();
         }));
     }
+
 
     private void refreshGui() {
         for (int x = 0; x <= BattleEngine.MAP_MAX_WIDTH; x++) {

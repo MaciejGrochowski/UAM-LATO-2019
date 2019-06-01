@@ -58,7 +58,7 @@ class HeroTest {
     }
 
     @Test
-    void creatureShouldDieAfter20Attacks(){
+    void creatureShouldDieAfter20AttacksAndDoesntDieAfter19Attacks(){
         for(int i=0;i<19;i++){
             creature1.attack(creature3);
         }
@@ -66,5 +66,6 @@ class HeroTest {
         creature1.attack(creature3);
         assertFalse(creature3.isAlive());
     }
+
 
 }

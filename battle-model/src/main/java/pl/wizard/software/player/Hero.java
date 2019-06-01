@@ -14,6 +14,8 @@ public class Hero {
     private int defence;
     private int intelligence;
     private int charisma;
+    public int mana;
+    public double criticalchance;
 
 
 
@@ -27,6 +29,8 @@ public class Hero {
         intelligence = aIntelligence;
         charisma = aCharisma;
         creatures = new ArrayList<>();
+        mana = 10*intelligence;
+        criticalchance = 0.05 * charisma;
     }
 
     public void addCreature(Creature aCreature) {

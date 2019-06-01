@@ -18,7 +18,7 @@ public class Creature {
     private boolean counterAttacked;
     private int startAmount;
     private int currentAmount;
-    private final CalculateDamageStrategyIf dealDamageStrategy;
+    private CalculateDamageStrategyIf dealDamageStrategy;
     private int speed;
     private Optional<Hero> hero;
 
@@ -164,6 +164,7 @@ public class Creature {
             e.getSpec().addPropertyChangeListener(e.getSpec().MORE_COUNTER_ATTACKS, (f -> {
                 counterAttacked = false;
             }));
+            e.getSpec().addPropertyChangeListener(e.getSpec().BLESS, (f -> {dealDamageStrategy = new UpperDamageStrategy();}));
         });
     }
 

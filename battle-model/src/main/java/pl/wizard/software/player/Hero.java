@@ -88,7 +88,7 @@ public class Hero {
         return spec;
     }
 
-    public void setSpec(SpecialAbility spec) {
-        this.spec = spec;
+    public void setSpec(String aSpec) {
+        spec = new SpecialAbility(aSpec);
     }
 }

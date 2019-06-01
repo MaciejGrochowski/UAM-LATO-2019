@@ -9,7 +9,7 @@ public class SpecialAbility {
 
     public static final String SPEED = "SPEED";
     public static final String MORE_COUNTER_ATTACKS = "MORE_COUNTER_ATTACKS";
-    public static final String MAGICAL_SKILL = "MAGICAL_SKILL";
+    public static final String BLESS = "BLESS";
 
     public String ability;
     PropertyChangeSupport listenersSupport;
@@ -32,6 +32,5 @@ public class SpecialAbility {
     public void UseSpecialAbility(){
         listenersSupport.firePropertyChange(ability, null, null);
     }
-//SPEED,
 
 }

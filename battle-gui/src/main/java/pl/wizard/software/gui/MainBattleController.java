@@ -26,13 +26,13 @@ public class MainBattleController {
     Button passButton;
 
     public MainBattleController() {
-        Hero p1 = new Hero(0,0,0,0,"SPEED");
+        Hero p1 = new Hero(0,0,0,0,"BLESS");
         Hero p2 = new Hero(0,0,0,0, "MORE_COUNTER_ATTACKS");
 
 
-        Creature c1 = new Creature("P1_C1", 2, Range.closed(1, 1), 1, 20, p1, 1);
-        Creature c2 = new Creature("P2_C1", 1000, Range.closed(1, 1), 1, 19, p2, 1);
-        Creature c3 = new Creature("P1_C2", 2, Range.closed(1, 1), 1, 18, p1, 1);
+        Creature c1 = new Creature("P1_C1", 2, Range.closed(1, 10), 1, 20, p1, 1);
+        Creature c2 = new Creature("P2_C1", 15, Range.closed(1, 1), 1, 19, p2, 1);
+        Creature c3 = new Creature("P1_C2", 2, Range.closed(1, 10), 1, 18, p1, 1);
         //Creature c4 = new Creature("P2_C2", 2, Range.closed(1, 1), 1, 18, p2, 1);
 //        p1.addCreature(new Creature("P1_C1", 1, Range.closed(1, 1), 1, 1));
 //        p1.addCreature(new Creature("P1_C2", 1, Range.closed(2, 2), 2, 2));

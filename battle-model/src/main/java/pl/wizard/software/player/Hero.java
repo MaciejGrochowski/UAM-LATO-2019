@@ -16,16 +16,16 @@ public class Hero {
     private int defence;
     private int intelligence;
     private int charisma;
-    public int mana;
+    private int mana;
     public double criticalchance;
-    public SpecialAbility spec;
+    private SpecialAbility spec;
 
 
     public Hero(){
         this(0,0,0,0);
     }
 
-    public Hero(int aAttack, int aDefence, int aInteligence, int aCharisma) {
+    Hero(int aAttack, int aDefence, int aInteligence, int aCharisma) {
         this(aAttack, aDefence, aInteligence, aCharisma, "no");
     }
 

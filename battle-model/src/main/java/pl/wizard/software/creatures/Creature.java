@@ -2,6 +2,10 @@ package pl.wizard.software.creatures;
 
 import com.google.common.collect.Range;
 import pl.wizard.software.battlefield.BattleEngine;
+import pl.wizard.software.player.Hero;
+
+import java.util.Optional;
+
 
 public class Creature {
 
@@ -15,27 +19,36 @@ public class Creature {
     private int currentAmount;
     private final CalculateDamageStrategyIf dealDamageStrategy;
     private int speed;
+    private Optional<Hero> hero;
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
-        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
-    }
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aDamageStrategy) {
+    public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aDamageStrategy, int aSpeed, Hero aHero, int aStartAmount){
         name = aName;
         maxHp = aMaxHp;
         currentHp = maxHp;
         attack = aAttack;
         defence = aDefence;
-        startAmount = 1;
+        startAmount = aStartAmount;
         currentAmount = startAmount;
         dealDamageStrategy = aDamageStrategy;
-        speed = 1;
+        speed = aSpeed;
+        hero = Optional.ofNullable(aHero);
+    }
+
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
+        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy(), 1, null, 1);
+    }
+
+    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aDamageStrategy) {
+        this(aName, aMaxHp, aAttack, aDefence, aDamageStrategy, 1, null, 1);
     }
 
     public Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, int aSpeed) {
-        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy());
-        speed = aSpeed;
+        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy(), aSpeed, null, 1);
+
+
     }
+
 
     public void attack(Creature aDefender) {
         int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aDefender);
@@ -120,8 +133,18 @@ public class Creature {
         return speed;
     }
 
+
+
     @Override
     public String toString() {
         return name;
+    }
+
+    public Optional<Hero> getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero aHero) {
+        this.hero = Optional.of(aHero);
     }
 }

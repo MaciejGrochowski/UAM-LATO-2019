@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AttackingEngineTest {
 
-    Creature centaur;
-    Creature imp;
+    private Creature centaur;
+    private Creature imp;
 
 
     @BeforeEach
@@ -93,4 +93,5 @@ class AttackingEngineTest {
         assertEquals(1, imp.getCurrentAmount());
         assertEquals(2, imp.getCurrentHp());
     }
+
 }

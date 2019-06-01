@@ -84,7 +84,6 @@ class HeroTest {
         Creature creature6 = new Creature("4", 2, Range.closed(1,4), 0, new DefaultDamageStrategy(), NOT_IMPORTANT, hero2, 1);
         hero2.getSpec().UseSpecialAbility();
         creature6.attack(creature5);
-        System.out.println(creature5.getCurrentHp());
         assertFalse(creature5.isAlive());
 
     }

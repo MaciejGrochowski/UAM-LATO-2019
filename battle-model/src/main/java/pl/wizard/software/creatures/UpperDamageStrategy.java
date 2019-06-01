@@ -5,7 +5,6 @@ class UpperDamageStrategy implements CalculateDamageStrategyIf {
     @Override
     public int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
         int damageToDeal = aAtacker.getAttack().upperEndpoint() - aDefender.getDefence();
-        System.out.println(damageToDeal);
         if (damageToDeal > 0) {
             return aAtacker.getCurrentAmount() * damageToDeal;
         } else {

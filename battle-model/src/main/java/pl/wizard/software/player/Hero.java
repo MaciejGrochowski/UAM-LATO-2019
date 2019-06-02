@@ -17,6 +17,7 @@ public class Hero {
     private int mana;
     public double criticalchance;
     private SpecialAbility spec;
+    private Equipment eq;
 
 
     public Hero(){
@@ -36,6 +37,7 @@ public class Hero {
         mana = 10*intelligence;
         criticalchance = 0.05 * charisma;
         spec = new SpecialAbility(aSpecialAbility);
+        eq = new Equipment();
     }
 
     public void addCreature(Creature aCreature) {
@@ -88,5 +90,40 @@ public class Hero {
 
     public void setSpec(String aSpec) {
         spec = new SpecialAbility(aSpec);
+    }
+
+    void setEq(Equipment aEq){
+        eq = aEq;
+    }
+
+    void improve(int aAttack, int aDefence, int aIntelligence, int aCharisma){
+        attack+= aAttack;
+        defence+= aDefence;
+        intelligence += aIntelligence;
+        charisma += aCharisma;
+        mana = 10*intelligence;
+        criticalchance = 0.05 * charisma;
+
+    }
+
+    void worsen(int aAttack, int aDefence, int aIntelligence, int aCharisma){
+        attack -= aAttack;
+        defence -= aDefence;
+        intelligence -= aIntelligence;
+        charisma -= aCharisma;
+        mana = 10*intelligence;
+        criticalchance = 0.05 * charisma;
+    }
+
+    public Equipment getEq() {
+        return eq;
+    }
+
+    public double getCriticalChance() {
+        return criticalchance;
+    }
+
+    public int getActualMana() {
+        return mana;
     }
 }

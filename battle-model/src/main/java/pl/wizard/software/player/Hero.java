@@ -97,8 +97,10 @@ public class Hero {
         spec = new SpecialAbility(aSpec);
     }
 
-    void setEq(Equipment aEq){
+    public void setEq(Equipment aEq){
+        eq.turnOffArtefacts(this);
         eq = aEq;
+        eq.turnOnArtefacts(this);
     }
 
     void improve(int aAttack, int aDefence, int aIntelligence, int aCharisma){
@@ -142,7 +144,6 @@ public class Hero {
 
     public void setHeroClass(HeroClass aHeroClass) {
         if (heroClass != null){
-            System.out.println("Chomik");
             heroClass.worse(this);
         }
         heroClass = aHeroClass;
@@ -151,5 +152,9 @@ public class Hero {
 
     public HeroClass getHeroClass(){
         return heroClass;
+    }
+
+    public void setSpellBook(SpellBook aSpellBook) {
+        spellBook = aSpellBook;
     }
 }

@@ -58,18 +58,22 @@ public class Creature {
 
 
     public void attack(Creature aDefender) {
+
         int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aDefender);
         aDefender.dealDamageToMe(damageToDeal);
         aDefender.counterAttack(this);
     }
 
     public void dealDamageToMe(int aDamageToDeal) {
+
+
         int bufor = aDamageToDeal;
         while (bufor >= currentHp) {
             currentAmount -= 1;
             bufor -= maxHp;
         }
         currentHp -= bufor;
+        currentAmount = Math.max(0, currentAmount);
     }
 
     private void counterAttack(Creature aAttacker) {

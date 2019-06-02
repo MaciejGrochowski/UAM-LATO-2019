@@ -18,7 +18,7 @@ public class Artefact {
         this(NOTHING, 0,0,0,0);
     }
 
-    Artefact(slots aType, int aAttack, int aDefence, int aIntelligence, int aCharisma){
+    public Artefact(slots aType, int aAttack, int aDefence, int aIntelligence, int aCharisma){
         type = aType;
         attack = aAttack;
         defence = aDefence;

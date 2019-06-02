@@ -9,7 +9,7 @@ public class Equipment {
 
     public enum slots{ BOOTS, ARMOR, WEAPON, HELM, GLOVES, NOTHING}
 
-    Equipment(){
+    public Equipment(){
         equipment = new HashMap<>();
     }
 
@@ -23,7 +23,7 @@ public class Equipment {
         }
     }
 
-    void add(Artefact aItem){
+    public void add(Artefact aItem){
         if (equipment.containsKey(aItem.getType())){
             throw new IllegalArgumentException("Ekwipunek zawiera juz przedmiot tego rodzaju");
         }

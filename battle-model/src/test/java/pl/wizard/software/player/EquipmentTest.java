@@ -44,7 +44,6 @@ class EquipmentTest {
     @Test
     void heroShouldHaveBetterStatsBecauseOfArtefacts(){
         hero1.setEq(eq);
-        hero1.getEq().turnOnArtefacts(hero1);
         assertEquals(1, hero1.getAttack());
         assertEquals(3, hero1.getDefence());
         assertEquals(0, hero1.getIntelligence());
@@ -55,7 +54,6 @@ class EquipmentTest {
     @Test
     void heroShouldHaveWorseStatsBecauseOfRemoveArtefacts(){
         hero1.setEq(eq);
-        hero1.getEq().turnOnArtefacts(hero1);
         hero1.getEq().turnOffArtefacts(hero1);
         assertEquals(0, hero1.getAttack());
         assertEquals(0, hero1.getDefence());
@@ -72,7 +70,6 @@ class EquipmentTest {
         Artefacts.add(item4);
         Artefacts.add(item5);
         hero1.setEq(new Equipment(Artefacts));
-        hero1.getEq().turnOnArtefacts(hero1);
         assertEquals(8, hero1.getAttack());
         assertEquals(4, hero1.getDefence());
         assertEquals(6, hero1.getIntelligence());

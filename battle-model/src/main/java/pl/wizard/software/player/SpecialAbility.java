@@ -13,7 +13,6 @@ public class SpecialAbility {
     private PropertyChangeSupport listenersSupport;
 
 
-
     SpecialAbility(String aAbility){
         ability = aAbility;
         listenersSupport = new PropertyChangeSupport(this);

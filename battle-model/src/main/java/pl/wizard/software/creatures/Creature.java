@@ -3,6 +3,7 @@ package pl.wizard.software.creatures;
 import com.google.common.collect.Range;
 import pl.wizard.software.battlefield.BattleEngine;
 import pl.wizard.software.player.Hero;
+import pl.wizard.software.player.SpecialAbility;
 
 import java.util.Optional;
 
@@ -42,10 +43,6 @@ public class Creature {
         this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy(), aSpeed, aHero, aStartAmount);
     }
 
-    Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence) {
-        this(aName, aMaxHp, aAttack, aDefence, new LowerDamageStragegy(), 1, null, 1);
-    }
-
     Creature(String aName, int aMaxHp, Range<Integer> aAttack, int aDefence, CalculateDamageStrategyIf aDamageStrategy) {
         this(aName, aMaxHp, aAttack, aDefence, aDamageStrategy, 1, null, 1);
     }
@@ -62,7 +59,6 @@ public class Creature {
         if (this.getHero().isPresent() && aDefender.getHero().isPresent() && this.getHero().equals(aDefender.getHero())){
             return -1;
         }
-
         int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aDefender);
         aDefender.dealDamageToMe(damageToDeal);
         aDefender.counterAttack(this);
@@ -70,7 +66,6 @@ public class Creature {
     }
 
     public void dealDamageToMe(int aDamageToDeal) {
-
 
         int bufor = aDamageToDeal;
         while (bufor >= currentHp) {
@@ -114,7 +109,7 @@ public class Creature {
         return maxHp;
     }
 
-    protected void setCurrentHp(int aCurrentHp) {
+    void setCurrentHp(int aCurrentHp) {
         currentHp = aCurrentHp;
     }
 
@@ -166,14 +161,14 @@ public class Creature {
         hero = Optional.ofNullable(aHero);
         hero.ifPresent(e -> {
             e.addCreature(this);
-            e.getSpec().addPropertyChangeListener(e.getSpec().SPEED, (f -> {
+            e.getSpec().addPropertyChangeListener(SpecialAbility.SPEED, (f -> {
                 speed += 1;
 
             }));
-            e.getSpec().addPropertyChangeListener(e.getSpec().MORE_COUNTER_ATTACKS, (f -> {
+            e.getSpec().addPropertyChangeListener(SpecialAbility.MORE_COUNTER_ATTACKS, (f -> {
                 counterAttacked = false;
             }));
-            e.getSpec().addPropertyChangeListener(e.getSpec().BLESS, (f -> {dealDamageStrategy = new UpperDamageStrategy();}));
+            e.getSpec().addPropertyChangeListener(SpecialAbility.BLESS, (f -> {dealDamageStrategy = new UpperDamageStrategy();}));
         });
     }
 

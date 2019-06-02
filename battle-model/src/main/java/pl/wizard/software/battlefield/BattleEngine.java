@@ -81,7 +81,7 @@ public class BattleEngine {
 
     }
 
-    void endOfTrun() {
+    private void endOfTrun() {
         listenersSupport.firePropertyChange(END_OF_TURN, null, null);
     }
 

@@ -1,6 +1,5 @@
 package pl.wizard.software.player;
 
-import com.google.common.collect.Range;
 import pl.wizard.software.creatures.Creature;
 import spellbook.SpellBook;
 
@@ -59,7 +58,7 @@ public class Hero {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    void setAttack(int attack) {
         this.attack = attack;
     }
 
@@ -67,7 +66,7 @@ public class Hero {
         return defence;
     }
 
-    public void setDefence(int defence) {
+    void setDefence(int defence) {
         this.defence = defence;
     }
 
@@ -75,16 +74,16 @@ public class Hero {
         return intelligence;
     }
 
-    public void setIntelligence(int intelligence) {
+    void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
         this.mana = 10*intelligence;
     }
 
-    public int getCharisma() {
+    int getCharisma() {
         return charisma;
     }
 
-    public void setCharisma(int aCharisma) {
+    void setCharisma(int aCharisma) {
         this.charisma = aCharisma;
         this.criticalchance = 0.05*charisma;
     }
@@ -93,7 +92,7 @@ public class Hero {
         return spec;
     }
 
-    public void setSpec(String aSpec) {
+    void setSpec(String aSpec) {
         spec = new SpecialAbility(aSpec);
     }
 
@@ -122,11 +121,11 @@ public class Hero {
         criticalchance = 0.05 * charisma;
     }
 
-    public Equipment getEq() {
+    Equipment getEq() {
         return eq;
     }
 
-    public double getCriticalChance() {
+    double getCriticalChance() {
         return criticalchance;
     }
 
@@ -134,7 +133,7 @@ public class Hero {
         return mana;
     }
 
-    public SpellBook getSpellBook() {
+    SpellBook getSpellBook() {
         return spellBook;
     }
 
@@ -142,7 +141,7 @@ public class Hero {
         mana -= aMana;
     }
 
-    public void setHeroClass(HeroClass aHeroClass) {
+    void setHeroClass(HeroClass aHeroClass) {
         if (heroClass != null){
             heroClass.worse(this);
         }
@@ -150,11 +149,11 @@ public class Hero {
         heroClass.improve(this);
     }
 
-    public HeroClass getHeroClass(){
+    HeroClass getHeroClass(){
         return heroClass;
     }
 
-    public void setSpellBook(SpellBook aSpellBook) {
+    void setSpellBook(SpellBook aSpellBook) {
         spellBook = aSpellBook;
     }
 }

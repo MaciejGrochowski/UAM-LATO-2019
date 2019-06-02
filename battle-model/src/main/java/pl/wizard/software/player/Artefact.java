@@ -1,18 +1,17 @@
 package pl.wizard.software.player;
 
-import java.util.Set;
 import pl.wizard.software.player.Equipment.slots;
 
-import static pl.wizard.software.player.Equipment.slots.*;
+import static pl.wizard.software.player.Equipment.slots.NOTHING;
 
 
 public class Artefact {
 
     private final slots type;
-    int attack;
-    int defence;
-    int intelligence;
-    int charisma;
+    private int attack;
+    private int defence;
+    private int intelligence;
+    private int charisma;
 
     Artefact(){
         this(NOTHING, 0,0,0,0);
@@ -34,7 +33,7 @@ public class Artefact {
         aHero.worsen(attack, defence, intelligence, charisma);
     }
 
-    public slots getType() {
+    slots getType() {
         return type;
     }
 }

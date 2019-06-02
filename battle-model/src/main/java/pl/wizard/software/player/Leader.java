@@ -4,7 +4,6 @@ import pl.wizard.software.creatures.Creature;
 
 public class Leader implements HeroClass {
 
-
     public void improve(Hero aHero) {
         aHero.setCharisma(aHero.getCharisma()*2);
     }

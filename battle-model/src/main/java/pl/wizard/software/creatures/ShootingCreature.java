@@ -9,9 +9,10 @@ class ShootingCreature extends Creature {
     }
 
     @Override
-    public void attack(Creature aDefender) {
+    public int attack(Creature aDefender) {
         int damageToDeal = getDealDamageStrategy().calculateDamageToDeal(this, aDefender);
         aDefender.setCurrentHp(aDefender.getCurrentHp()-damageToDeal);
+        return 0;
     }
 
 

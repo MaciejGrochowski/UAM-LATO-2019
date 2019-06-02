@@ -99,9 +99,9 @@ public class BattleEngine {
         if (!isAttackPossible(aTarget)) {
             throw new IllegalArgumentException("Creature is out of range");
         }
-        currentCreature.attack(aTarget);
+        if(currentCreature.attack(aTarget) != -1){
         nextCreature();
-        listenersSupport.firePropertyChange(CREATURE_ATACKED, null, null);
+        listenersSupport.firePropertyChange(CREATURE_ATACKED, null, null);}
     }
 
     public Optional<Creature> getCreatureByPosition(Point aPosition) {

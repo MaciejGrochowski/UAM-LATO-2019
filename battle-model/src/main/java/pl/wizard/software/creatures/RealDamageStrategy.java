@@ -4,12 +4,11 @@ import java.util.Random;
 
 public class RealDamageStrategy extends DefaultDamageStrategy {
 
-    Random rand;
+    private Random rand;
 
     RealDamageStrategy(){
         rand = new Random();
     }
-
 
     @Override
     public int calculateDamageToDeal(Creature aAtacker, Creature aDefender){
@@ -21,9 +20,5 @@ public class RealDamageStrategy extends DefaultDamageStrategy {
             }
         }
         return dmg;
-
-
     }
-
-
-    }
+}

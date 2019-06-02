@@ -5,7 +5,6 @@ import pl.wizard.software.creatures.Creature;
 import pl.wizard.software.player.Hero;
 
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
@@ -78,7 +77,7 @@ public class BattleEngine {
         creatureMovedInThisTurn.add(currentCreature);
 
 
-        currentCreature.getHero().ifPresent(c -> c.getSpec().UseSpecialAbility());
+        currentCreature.getHero().ifPresent(c -> c.getSpec().useSpecialAbility());
 
     }
 

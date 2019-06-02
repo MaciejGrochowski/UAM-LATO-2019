@@ -8,8 +8,6 @@ import java.util.List;
 
 public class Hero {
 
-
-
     private final List<Creature> creatures;
 
     private int attack;

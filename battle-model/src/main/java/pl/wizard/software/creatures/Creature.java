@@ -63,7 +63,7 @@ public class Creature {
         aDefender.counterAttack(this);
     }
 
-    private void dealDamageToMe(int aDamageToDeal) {
+    public void dealDamageToMe(int aDamageToDeal) {
         int bufor = aDamageToDeal;
         while (bufor >= currentHp) {
             currentAmount -= 1;

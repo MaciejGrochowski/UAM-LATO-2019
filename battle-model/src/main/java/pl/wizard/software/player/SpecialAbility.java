@@ -24,7 +24,7 @@ public class SpecialAbility {
         listenersSupport.addPropertyChangeListener(aPropertyName, aListener);
     }
 
-    public void UseSpecialAbility(){
+    public void useSpecialAbility(){
         listenersSupport.firePropertyChange(ability, null, null);
     }
 

@@ -1,15 +1,13 @@
 package pl.wizard.software.player;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import pl.wizard.software.player.Equipment.slots;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static pl.wizard.software.player.Equipment.slots.*;
-
+import static pl.wizard.software.player.HeroTest.*;
 
 
 class EquipmentTest {
@@ -22,30 +20,22 @@ class EquipmentTest {
     private Artefact item5;
     private Artefact item6;
     private Equipment eq;
-
-    @BeforeEach
-    void prepareHeroesAndArtefacts(){
-        hero1 = new Hero(0,0,0,0);
-        item1 = new Artefact(BOOTS, 1, 0, 0, 0);
-        item2 = new Artefact(ARMOR, 0, 3, 0, 1);
-        item3 = new Artefact(GLOVES, 0, 0, 2, 1);
-        item4 = new Artefact(WEAPON, 7, 1, 0, 0);
-        item5 = new Artefact(HELM, 0, 0, 4, 3);
-        item6 = new Artefact(WEAPON, 100, 0, 0, 0);
+    static final int IMPROVED = 1;
 
 
+    @Test
+    void heroShouldHaveBetterStatsBecauseOfArtefacts(){
+        hero1 = new Hero(NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED);
+        item1 = new Artefact(BOOTS, IMPROVED, NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED);
+        item2 = new Artefact(ARMOR, NOT_IMPROVED, IMPROVED, NOT_IMPROVED, IMPROVED);
         eq = new Equipment();
         eq.add(item1);
         eq.add(item2);
 
 
-    }
-
-    @Test
-    void heroShouldHaveBetterStatsBecauseOfArtefacts(){
         hero1.setEq(eq);
         assertEquals(1, hero1.getAttack());
-        assertEquals(3, hero1.getDefence());
+        assertEquals(1, hero1.getDefence());
         assertEquals(0, hero1.getIntelligence());
         assertEquals(1, hero1.getCharisma());
         assertEquals(0.05, hero1.getCriticalChance());
@@ -53,6 +43,14 @@ class EquipmentTest {
 
     @Test
     void heroShouldHaveWorseStatsBecauseOfRemoveArtefacts(){
+        hero1 = new Hero(NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED);
+        item1 = new Artefact(BOOTS, IMPROVED, NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED);
+        item2 = new Artefact(ARMOR, NOT_IMPROVED, IMPROVED, NOT_IMPROVED, IMPROVED);
+        eq = new Equipment();
+        eq.add(item1);
+        eq.add(item2);
+
+
         hero1.setEq(eq);
         hero1.getEq().turnOffArtefacts(hero1);
         assertEquals(0, hero1.getAttack());
@@ -63,6 +61,12 @@ class EquipmentTest {
 
     @Test
     void heroShouldHaveFiveArtefacts(){
+        hero1 = new Hero(NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED, NOT_IMPROVED);
+        item1 = new Artefact(BOOTS, IMPROVED, NOT_IMPROVED, NOT_IMPORTANT, NOT_IMPROVED);
+        item2 = new Artefact(ARMOR, NOT_IMPROVED, IMPROVED, NOT_IMPROVED, IMPROVED);
+        item3 = new Artefact(GLOVES, NOT_IMPROVED, NOT_IMPROVED, IMPROVED, IMPROVED);
+        item4 = new Artefact(WEAPON, IMPROVED, IMPROVED, NOT_IMPROVED, NOT_IMPROVED);
+        item5 = new Artefact(HELM, NOT_IMPROVED, NOT_IMPROVED, IMPROVED, IMPROVED);
         Set<Artefact> Artefacts = new HashSet<>();
         Artefacts.add(item1);
         Artefacts.add(item2);
@@ -70,27 +74,37 @@ class EquipmentTest {
         Artefacts.add(item4);
         Artefacts.add(item5);
         hero1.setEq(new Equipment(Artefacts));
-        assertEquals(8, hero1.getAttack());
-        assertEquals(4, hero1.getDefence());
-        assertEquals(6, hero1.getIntelligence());
-        assertEquals(5, hero1.getCharisma());
-        assertEquals(60, hero1.getActualMana());
-        assertEquals(0.25, hero1.getCriticalChance());
+        assertEquals(2, hero1.getAttack());
+        assertEquals(2, hero1.getDefence());
+        assertEquals(2, hero1.getIntelligence());
+        assertEquals(3, hero1.getCharisma());
 
     }
 
     @Test
-    void heroShouldntHaveTwoWeapons(){
+    void heroShouldHaveSomeArtefactsButHeShouldntHaveTwoWeapons(){
+        item1 = new Artefact(BOOTS, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT);
+        item2 = new Artefact(ARMOR, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT);
+        item4 = new Artefact(WEAPON, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT);
+        item6 = new Artefact(WEAPON, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT);
+        eq = new Equipment();
+        eq.add(item1);
+        eq.add(item2);
         eq.add(item4);
         assertThrows(IllegalArgumentException.class, () -> eq.add(item6));
     }
 
     @Test
     void heroShouldHaveEmptyEquipment(){
-        hero1.getEq().remove(BOOTS);
-        hero1.getEq().remove(ARMOR);
-
-        assertTrue(hero1.getEq().equipment.isEmpty());
+        item1 = new Artefact(BOOTS, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT);
+        item2 = new Artefact(ARMOR, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT, NOT_IMPORTANT);
+        eq = new Equipment();
+        eq.add(item1);
+        eq.add(item2);
+        assertFalse(eq.equipment.isEmpty());
+        eq.remove(BOOTS);
+        eq.remove(ARMOR);
+        assertTrue(eq.equipment.isEmpty());
 
     }
 

@@ -8,7 +8,7 @@ public interface HeroClass {
 
     void worse(Hero aHero);
 
-    void castSpell(Hero aHero, Creature aTarget) throws Exception;
+    void castSpell(Hero aHero, Creature aTarget);
 
 
 }

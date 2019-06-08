@@ -77,7 +77,7 @@ public class BattleEngine {
         creatureMovedInThisTurn.add(currentCreature);
 
 
-        currentCreature.getHero().ifPresent(c -> c.getSpec().useSpecialAbility());
+        currentCreature.getHero().ifPresent(c -> c.getSpec().setOnSpecialAbility(c));
 
     }
 

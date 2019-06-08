@@ -16,9 +16,9 @@ public class CurrentCreatureMapTileDecoratorFactory extends DefaultMapTileFactor
     @Override
     public MapTile prepareTile(int aX, int aY) {
         MapTile mapTile =  decorated.prepareTile(aX, aY);
-        ((CreatureMapTileDecoratorFactory)decorated).getCreatureNameLabel().setFont(Font.font("Arial", 18));
+        ((CreatureMapTileDecoratorFactory)decorated).getCreatureNameLabel().setFont(Font.font("Arial", 12));
         ((CreatureMapTileDecoratorFactory)decorated).getCreatureNameLabel().setTextFill(Color.BLUE);
-        ((CreatureMapTileDecoratorFactory)decorated).getCreatureAmountLabel().setFont(Font.font("Arial", 14));
+        ((CreatureMapTileDecoratorFactory)decorated).getCreatureAmountLabel().setFont(Font.font("Arial", 10));
         ((CreatureMapTileDecoratorFactory)decorated).getCreatureAmountLabel().setTextFill(Color.BLUE);
         return mapTile;
     }

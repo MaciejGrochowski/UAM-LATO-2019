@@ -13,7 +13,7 @@ public class Wizard implements HeroClass {
         aHero.setIntelligence(aHero.getIntelligence()/2);
     }
 
-    public void castSpell(Hero aHero, Creature aTarget) {
+    public void castSpell(Hero aHero, Creature aTarget){
         aHero.getSpellBook().cast(aHero, 2, aTarget);
     }
 }

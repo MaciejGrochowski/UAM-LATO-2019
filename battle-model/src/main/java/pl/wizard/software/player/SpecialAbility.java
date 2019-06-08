@@ -1,7 +1,14 @@
 package pl.wizard.software.player;
 
+import pl.wizard.software.creatures.Creature;
+import pl.wizard.software.creatures.CreatureBless;
+import pl.wizard.software.creatures.CreatureMoreCounterAttacks;
+import pl.wizard.software.creatures.CreatureSpeed;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpecialAbility {
 
@@ -23,8 +30,37 @@ public class SpecialAbility {
         listenersSupport.addPropertyChangeListener(aPropertyName, aListener);
     }
 
-    public void useSpecialAbility(){
-        listenersSupport.firePropertyChange(ability, null, null);
+    public void setOnSpecialAbility(Hero aHero){
+        List <Creature> newCreatures = new ArrayList<>();
+        for (Creature aCreature : aHero.getCreatures()){
+
+            if(ability == SPEED){
+                newCreatures.add(new CreatureSpeed(aCreature));
+                continue;
+            }
+            if(ability == BLESS){
+                newCreatures.add(new CreatureBless(aCreature));
+                continue;
+            }
+
+            if (ability == MORE_COUNTER_ATTACKS){
+                newCreatures.add(new CreatureMoreCounterAttacks(aCreature));
+            }
+
+
+        }
+
+        aHero.getCreatures().clear();
+
+        for (Creature aCreature : newCreatures){
+            aCreature.setHero(aHero);
+        }
+
+//        aHero.setCreatures(newCreatures);
+        //listenersSupport.firePropertyChange(ability, null, null);
     }
 
+    public String getType() {
+        return ability;
+    }
 }

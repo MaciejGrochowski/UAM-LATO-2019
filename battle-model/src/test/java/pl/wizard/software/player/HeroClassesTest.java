@@ -16,23 +16,22 @@ public class HeroClassesTest {
 
 
     @BeforeEach
-    void prepareheroes(){
+    void prepareHeroes(){
         hero1 = new Hero(1,1,1,1);
         creature1 = new Creature(null, 20,null,0, 0);
     }
 
 
     @Test
-    void heroShouldHaveBetterStatsBecauseHeIsWarrior(){
+    void heroShouldHaveAttack2AndDeffence3BecauseHeIsWarrior(){
         hero1.setHeroClass(new Warrior());
-
         assertEquals(2, hero1.getAttack() );
         assertEquals(3, hero1.getDefence());
     }
 
 
     @Test
-    void heroShouldHaveMoreIntelligenceBecauseHeIsWizard(){
+    void heroShouldHaveIntelligence2BecauseHeIsWizard(){
         hero1.setHeroClass(new Wizard());
 
         assertEquals(2, hero1.getIntelligence() );
@@ -42,7 +41,7 @@ public class HeroClassesTest {
 
 
     @Test
-    void heroShouldHaveMoreCharismaBecauseHeIsLeader(){
+    void heroShouldHaveCharisma2BecauseHeIsLeader(){
         hero1.setHeroClass(new Leader());
 
         assertEquals(2, hero1.getCharisma() );
@@ -59,9 +58,8 @@ public class HeroClassesTest {
     }
 
     @Test
-    void warriorShouldBecomeWizard(){
+    void warriorShouldHaveAttack1AndIntelligence2BecauseHeBecomesWizardAndHeIsntWarrior(){
         hero1.setHeroClass(new Warrior());
-
         hero1.setHeroClass(new Wizard());
 
         assertEquals(1, hero1.getAttack() );
@@ -69,7 +67,7 @@ public class HeroClassesTest {
     }
 
     @Test
-    void wizardShouldCastSpell() throws Exception {
+    void wizardShouldCastSpellThatDeal4DamageToCreature() throws Exception {
         hero1.setHeroClass(new Wizard());
         hero1.setSpellBook(new SpellBook());
 
@@ -79,16 +77,14 @@ public class HeroClassesTest {
     }
 
     @Test
-    void wizardShouldntCastSpellBecauseOfNoMana() throws Exception {
+    void wizardShouldCastSpell4TimesAndShouldntCastSpell5TimesBecauseOfNoMana() throws Exception {
         hero1.setHeroClass(new Wizard());
         hero1.setSpellBook(new SpellBook());
-
-
         hero1.getHeroClass().castSpell(hero1, creature1);
         hero1.getHeroClass().castSpell(hero1, creature1);
         hero1.getHeroClass().castSpell(hero1, creature1);
         hero1.getHeroClass().castSpell(hero1, creature1);
-        hero1.getHeroClass().castSpell(hero1, creature1);
+        assertThrows(Exception.class, () -> hero1.getHeroClass().castSpell(hero1, creature1));
         assertTrue(creature1.isAlive());
 
     }

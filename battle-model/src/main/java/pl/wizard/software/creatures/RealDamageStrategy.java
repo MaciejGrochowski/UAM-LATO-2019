@@ -15,7 +15,7 @@ public class RealDamageStrategy extends DefaultDamageStrategy {
         int dmg = super.calculateDamageToDeal(aAtacker, aDefender);
 
         if (aAtacker.getHero().isPresent()) {
-            if (rand.nextDouble() < aAtacker.getHero().get().criticalchance) {
+            if (rand.nextDouble() < aAtacker.getHero().get().criticalChance) {
                 dmg *= 2;
             }
         }

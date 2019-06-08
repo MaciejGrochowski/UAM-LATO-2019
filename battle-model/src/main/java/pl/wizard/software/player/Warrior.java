@@ -14,7 +14,7 @@ public class Warrior implements HeroClass {
         aHero.setDefence(aHero.getDefence()-2);
     }
 
-    public void castSpell(Hero aHero, Creature aTarget) throws Exception {
-        throw new Exception("Wojownik nie moze czarowac!");
+    public void castSpell(Hero aHero, Creature aTarget) {
+        throw new IllegalArgumentException("Warrior can't cast spells");
     }
 }

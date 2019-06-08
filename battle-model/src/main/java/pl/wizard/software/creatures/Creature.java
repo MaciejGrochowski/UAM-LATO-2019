@@ -74,9 +74,12 @@ public class Creature {
         }
         currentHp -= bufor;
         currentAmount = Math.max(0, currentAmount);
+        if (currentAmount==0){
+            currentHp = 0;
+        }
     }
 
-    private void counterAttack(Creature aAttacker) {
+    protected void counterAttack(Creature aAttacker) {
         if (!counterAttacked) {
             int damageToDeal = dealDamageStrategy.calculateDamageToDeal(this, aAttacker);
             aAttacker.dealDamageToMe(damageToDeal);
@@ -150,7 +153,7 @@ public class Creature {
 
     @Override
     public String toString() {
-        return name;
+        return name + '\n' + "HP: " +currentHp;
     }
 
     public Optional<Hero> getHero() {
@@ -160,16 +163,10 @@ public class Creature {
     public void setHero(Hero aHero) {
         hero = Optional.ofNullable(aHero);
         hero.ifPresent(e -> {
-            e.addCreature(this);
-            e.getSpec().addPropertyChangeListener(SpecialAbility.SPEED, (f -> {
-                speed += 1;
-
-            }));
-            e.getSpec().addPropertyChangeListener(SpecialAbility.MORE_COUNTER_ATTACKS, (f -> {
-                counterAttacked = false;
-            }));
-            e.getSpec().addPropertyChangeListener(SpecialAbility.BLESS, (f -> {dealDamageStrategy = new UpperDamageStrategy();}));
-        });
+            e.addCreature(this);});
     }
 
+    public String getName() {
+        return name;
+    }
 }

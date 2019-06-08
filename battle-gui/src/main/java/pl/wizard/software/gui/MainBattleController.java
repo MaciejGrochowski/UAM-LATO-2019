@@ -30,8 +30,8 @@ public class MainBattleController {
 
     public MainBattleController() {
         Artefact a1 = new Artefact(Equipment.slots.BOOTS, 1 ,0,0,0);
-        Artefact a2 = new Artefact(Equipment.slots.WEAPON, 4, 1, 0, 0);
-        Artefact a3 = new Artefact(Equipment.slots.GLOVES, 30, 30, 2, 1);
+        Artefact a2 = new Artefact(Equipment.slots.WEAPON, 4, 2, 0, 0);
+        Artefact a3 = new Artefact(Equipment.slots.GLOVES, 3, 3, 2, 1);
 
         Equipment eq1 = new Equipment();
         eq1.add(a1);
@@ -49,9 +49,17 @@ public class MainBattleController {
        // p2.setHeroClass(new Warrior());
 
 
-        Creature c1 = new Creature("P1_C1", 2, Range.closed(1, 10), 1, new DefaultDamageStrategy(), 20, p1, 1);
-        Creature c2 = new Creature("P2_C1", 15, Range.closed(1, 1), 1, new DefaultDamageStrategy(), 19, p2, 1);
-        Creature c3 = new Creature("P1_C2", 2, Range.closed(1, 10), 1, new DefaultDamageStrategy(), 18, p1, 1);
+        Creature c1 = new Creature("Familiar", 4, Range.closed(5, 6), 4, new DefaultDamageStrategy(), 7, p1, 22);
+        Creature c2 = new Creature("Cerberus", 25, Range.closed(12, 17), 8, new DefaultDamageStrategy(), 8, p1, 7);
+        Creature c3 = new Creature("Demon", 35, Range.closed(17, 19), 10, new DefaultDamageStrategy(), 5, p1, 4);
+        Creature c4 = new Creature("Devil", 160, Range.closed(56, 66), 21, new DefaultDamageStrategy(), 11, p1, 1);
+
+
+        Creature c5 = new Creature("Halberdier", 10, Range.closed(8,9), 5, new DefaultDamageStrategy(), 5, p2, 12);
+        Creature c6 = new Creature("Griffin", 25, Range.closed(12,15), 8, new DefaultDamageStrategy(), 9, p2, 7);
+        Creature c7 = new Creature("Crusaider", 35, Range.closed(16,19), 12, new DefaultDamageStrategy(), 5, p2, 4 );
+        Creature c8 = new Creature("Angel", 200, Range.closed(70,70), 20, new DefaultDamageStrategy(), 12, p2, 1 );
+
         //Creature c4 = new Creature("P2_C2", 2, Range.closed(1, 1), 1, 18, p2, 1);
 //        p1.addCreature(new Creature("P1_C1", 1, Range.closed(1, 1), 1, 1));
 //        p1.addCreature(new Creature("P1_C2", 1, Range.closed(2, 2), 2, 2));
@@ -65,6 +73,9 @@ public class MainBattleController {
 //        p2.addCreature(new Creature("P2_C4", 1, Range.closed(4, 4), 4, 4));
         //p2.addCreature(new Creature("P2_C5", 1, Range.closed(5, 5), 5, 10));
 
+
+        p1.activateSpec();
+        p2.activateSpec();
         engine = new BattleEngine(p1, p2);
 
     }

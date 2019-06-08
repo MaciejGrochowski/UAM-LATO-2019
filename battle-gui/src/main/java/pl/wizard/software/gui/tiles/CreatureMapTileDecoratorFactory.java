@@ -26,8 +26,8 @@ public class CreatureMapTileDecoratorFactory extends DefaultMapTileFactory {
         MapTile mapTile = decorated.prepareTile(aX, aY);
 
         BorderPane creaturePane = new BorderPane();
-        creatureNameLabel.setFont(Font.font("Arial", 14));
-        creatureAmountLabel.setFont(Font.font("Arial", 12));
+        creatureNameLabel.setFont(Font.font("Arial", 12));
+        creatureAmountLabel.setFont(Font.font("Arial", 10));
         creaturePane.setCenter(creatureNameLabel);
         creaturePane.setBottom(creatureAmountLabel);
         creaturePane.setAlignment(creatureAmountLabel, Pos.CENTER);

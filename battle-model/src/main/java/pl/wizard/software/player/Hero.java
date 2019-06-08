@@ -8,14 +8,13 @@ import java.util.List;
 
 public class Hero {
 
-    private final List<Creature> creatures;
-
+    private List<Creature> creatures;
     private int attack;
     private int defence;
     private int intelligence;
     private int charisma;
     private int mana;
-    public double criticalchance;
+    public double criticalChance;
     private SpecialAbility spec;
     private Equipment eq;
     private HeroClass heroClass;
@@ -27,8 +26,13 @@ public class Hero {
     }
 
     Hero(int aAttack, int aDefence, int aInteligence, int aCharisma) {
-        this(aAttack, aDefence, aInteligence, aCharisma, "no");
+        this(aAttack, aDefence, aInteligence, aCharisma, null);
     }
+
+
+
+
+
 
     public Hero(int aAttack, int aDefence, int aIntelligence, int aCharisma, String aSpecialAbility){
         attack = aAttack;
@@ -37,7 +41,7 @@ public class Hero {
         charisma = aCharisma;
         creatures = new ArrayList<>();
         mana = 10*intelligence;
-        criticalchance = 0.05 * charisma;
+        criticalChance = 0.05 * charisma;
         spec = new SpecialAbility(aSpecialAbility);
         eq = new Equipment();
     }
@@ -85,7 +89,7 @@ public class Hero {
 
     void setCharisma(int aCharisma) {
         this.charisma = aCharisma;
-        this.criticalchance = 0.05*charisma;
+        this.criticalChance = 0.05 * charisma;
     }
 
     public SpecialAbility getSpec() {
@@ -93,8 +97,15 @@ public class Hero {
     }
 
     void setSpec(String aSpec) {
-        spec = new SpecialAbility(aSpec);
+        if(spec.getType() == null) {
+            spec = new SpecialAbility(aSpec);
+        }
     }
+
+    public void activateSpec(){
+        spec.setOnSpecialAbility(this);
+    }
+
 
     public void setEq(Equipment aEq){
         eq.turnOffArtefacts(this);
@@ -108,7 +119,7 @@ public class Hero {
         intelligence += aIntelligence;
         charisma += aCharisma;
         mana = 10*intelligence;
-        criticalchance = 0.05 * charisma;
+        criticalChance = 0.05 * charisma;
 
     }
 
@@ -118,7 +129,7 @@ public class Hero {
         intelligence -= aIntelligence;
         charisma -= aCharisma;
         mana = 10*intelligence;
-        criticalchance = 0.05 * charisma;
+        criticalChance = 0.05 * charisma;
     }
 
     Equipment getEq() {
@@ -126,7 +137,7 @@ public class Hero {
     }
 
     double getCriticalChance() {
-        return criticalchance;
+        return criticalChance;
     }
 
     public int getActualMana() {
@@ -155,5 +166,13 @@ public class Hero {
 
     void setSpellBook(SpellBook aSpellBook) {
         spellBook = aSpellBook;
+    }
+
+
+    public void setCreatures(List<Creature> newCreatures) {
+        if(newCreatures.size() > 5){
+            throw new IllegalArgumentException("Hero doesn't have empty slot for next creature");
+        }
+        creatures = newCreatures;
     }
 }

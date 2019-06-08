@@ -14,7 +14,7 @@ public class Hero {
     private int intelligence;
     private int charisma;
     private int mana;
-    public double criticalChance;
+    private double criticalChance;
     private SpecialAbility spec;
     private Equipment eq;
     private HeroClass heroClass;
@@ -28,10 +28,6 @@ public class Hero {
     Hero(int aAttack, int aDefence, int aInteligence, int aCharisma) {
         this(aAttack, aDefence, aInteligence, aCharisma, null);
     }
-
-
-
-
 
 
     public Hero(int aAttack, int aDefence, int aIntelligence, int aCharisma, String aSpecialAbility){
@@ -87,8 +83,7 @@ public class Hero {
         return charisma;
     }
 
-    void setCharisma(int aCharisma) {
-        this.charisma = aCharisma;
+    void setCharisma(int aCharisma) {        this.charisma = aCharisma;
         this.criticalChance = 0.05 * charisma;
     }
 

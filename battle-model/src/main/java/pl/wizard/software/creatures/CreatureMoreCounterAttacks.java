@@ -1,8 +1,5 @@
 package pl.wizard.software.creatures;
 
-import com.google.common.collect.Range;
-import pl.wizard.software.player.Hero;
-
 public class CreatureMoreCounterAttacks extends Creature {
 
     public CreatureMoreCounterAttacks(Creature aCreature) {

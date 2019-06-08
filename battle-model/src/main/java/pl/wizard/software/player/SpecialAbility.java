@@ -5,8 +5,6 @@ import pl.wizard.software.creatures.CreatureBless;
 import pl.wizard.software.creatures.CreatureMoreCounterAttacks;
 import pl.wizard.software.creatures.CreatureSpeed;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +15,10 @@ public class SpecialAbility {
     public static final String BLESS = "BLESS";
 
     private String ability;
-    private PropertyChangeSupport listenersSupport;
 
 
     SpecialAbility(String aAbility){
         ability = aAbility;
-        listenersSupport = new PropertyChangeSupport(this);
-
-    }
-
-    public void addPropertyChangeListener(String aPropertyName, PropertyChangeListener aListener) {
-        listenersSupport.addPropertyChangeListener(aPropertyName, aListener);
     }
 
     public void setOnSpecialAbility(Hero aHero){
@@ -46,8 +37,6 @@ public class SpecialAbility {
             if (ability == MORE_COUNTER_ATTACKS){
                 newCreatures.add(new CreatureMoreCounterAttacks(aCreature));
             }
-
-
         }
 
         aHero.getCreatures().clear();
@@ -55,12 +44,9 @@ public class SpecialAbility {
         for (Creature aCreature : newCreatures){
             aCreature.setHero(aHero);
         }
-
-//        aHero.setCreatures(newCreatures);
-        //listenersSupport.firePropertyChange(ability, null, null);
     }
 
-    public String getType() {
+    String getType() {
         return ability;
     }
 }

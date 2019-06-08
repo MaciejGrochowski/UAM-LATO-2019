@@ -1,9 +1,7 @@
 package pl.wizard.software.player;
 
 import pl.wizard.software.player.Equipment.slots;
-
 import static pl.wizard.software.player.Equipment.slots.NOTHING;
-
 
 public class Artefact {
 
@@ -28,7 +26,6 @@ public class Artefact {
     void turnOnTheArtefact(Hero aHero){
         aHero.improve(attack, defence, intelligence, charisma);
     }
-
     void turnOffTheArtefact(Hero aHero){
         aHero.worsen(attack, defence, intelligence, charisma);
     }

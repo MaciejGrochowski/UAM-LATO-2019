@@ -94,16 +94,6 @@ public class Creature {
         }));
     }
 
-
-//    protected int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
-//        int damageToDeal = aAtacker.attack.lowerEndpoint() - aDefender.defence;
-//        if (damageToDeal > 0) {
-//            return aAtacker.getCurrentAmount() * damageToDeal;
-//        } else {
-//            return aAtacker.getCurrentAmount() * 1;
-//        }
-//    }
-
     public int getCurrentHp() {
         return currentHp;
     }
@@ -166,7 +156,7 @@ public class Creature {
             e.addCreature(this);});
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 }

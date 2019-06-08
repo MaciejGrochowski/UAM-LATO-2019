@@ -1,6 +1,6 @@
 package pl.wizard.software.creatures;
 
-class UpperDamageStrategy implements CalculateDamageStrategyIf {
+public class UpperDamageStrategy implements CalculateDamageStrategyIf {
 
     @Override
     public int calculateDamageToDeal(Creature aAtacker, Creature aDefender) {
